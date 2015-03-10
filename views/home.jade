@@ -2,9 +2,9 @@ extends layout
 
 block content
 
-	form
-		input(type="text")
-		img(src="/img/uploadpicIcon.png", width="25px")
-	//- p
-	//- 	for each idea in ideas
+	form.post
+		input.postinput(type="text")
+		img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
+		input.submit(type="submit")
+	div.ideaBody
 	

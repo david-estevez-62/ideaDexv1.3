@@ -1,21 +1,37 @@
-block content
-	.container
-		div
-			h1 IdeaDex
-		div
-			form.form
-				input.form-control(type="text", placeholder="username")
-			form.form
-				input.form-control(type="text", placeholder="password")
-			button
-				a(href="/home") Login
-			button
-				a(href="/home") Create Acct
-		div
-			span forgot username?
-				button
-					a(href="/changeUsername") Change Username
-		div
-			span forgot password?
-				button
-					a(href="/changePassword") Change Password
+doctype html
+html(lang='en')
+	head
+		meta(charset="utf-8")
+		link(rel="stylesheet", type="text/css", href="main.css")
+		link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+		title IdeaDex
+
+	body.container
+			img.logoimg(src="/img/ideadexlogo.png")
+			div.login
+				div
+					h1 IdeaDex
+				div
+					form.form1
+						label Username: 
+						input.loginusername(type="text", placeholder="username")
+					p
+					form.form2
+						label Password:
+						input.loginpassword(type="text", placeholder="password")
+				p
+				div
+					button
+						a(href="/home") Create Acct
+				
+					button.loginbtn
+						a(href="/home") Login
+					
+				div
+					span forgot username?
+						button.chgusr
+							a(href="/changeUsername") Change Username
+				div
+					span forgot password?
+						button.chgpw
+							a(href="/changePassword") Change Password

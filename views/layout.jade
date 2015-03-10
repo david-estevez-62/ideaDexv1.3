@@ -1,5 +1,5 @@
 doctype html
-html(lang='en', ng-app="ideaApp")
+html(lang='en')
 	head
 		meta(charset="utf-8")
 		link(rel="stylesheet", type="text/css", href="main.css")
@@ -8,48 +8,44 @@ html(lang='en', ng-app="ideaApp")
 
 	body
 		.header IdeaDex
-		table
-			tr
-				td.cell1
-					nav(role="navigation")
-						form.form-group
-							input(type="text", placeholder="search for user")
-							input(type="submit", placeholder="Search")
-				td.cell2
-					ul.menuBar
-						li
-							button
-								a(href="/home") Home
-						li
-							button
-								a(href="/discover") Discover
-						li
-							button
-								a(href="/favorites") Favorites
-						li
-							button Settings
-							ul
-								li
-									button
-										a(href="/notifications") Notifications
-							ul
-								li
-									button
-										a(href="privacy") Privacy
-									//- <div class="onoffswitch">
-									//- 	<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-									//- 	<label class="onoffswitch-label" for="myonoffswitch">
-									//- 		<span class="onoffswitch-inner"></span>
-									//- 		<span class="onoffswitch-switch"></span>
-									//- 	</label>
-									//- </div>
-							ul
-								li
-									button
-										a(href="/home") Logout
+		nav(role="navigation")
+			form.form-group
+				input.searchinput(type="text", placeholder="search for user")
+				input(type="submit", placeholder="Search")
+		ul.menuBar
+			li
+				button
+					a(href="/home") Home
+			li
+				button
+					a(href="/discover") Discover
+			li
+				button
+					a(href="/favorites") Favorites
+			li
+				button Settings
+				ul
+					li
+						button
+							a(href="/notifications") Notifications
+					li
+						button
+							a(href="privacy") Privacy
+					li
+						button
+							a(href="/home") Logout
+						//- <div class="onoffswitch">
+						//- 	<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+						//- 	<label class="onoffswitch-label" for="myonoffswitch">
+						//- 		<span class="onoffswitch-inner"></span>
+						//- 		<span class="onoffswitch-switch"></span>
+						//- 	</label>
+						//- </div>
+					
 
 		block content
-			
+		
+		script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js")
 		script(src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.js")
 		script(src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-resource.js")
 		script(src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.js")
