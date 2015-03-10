@@ -1,0 +1,48 @@
+doctype html
+html(lang='en', ng-app="ideaApp")
+	head
+		meta(charset="utf-8")
+		link(rel="stylesheet", type="text/css", href="main.css")
+		title IdeaDex
+
+	body
+		nav(role="navigation")
+			form.form-group
+				input(type="text", placeholder="search for user")
+				input(type="submit", placeholder="Submit")
+				ul
+					li
+						button
+							a(href="/home") Home
+					li
+						button
+							a(href="/discover") Discover
+					li
+						button
+							a(href="/favorites") Favorites
+					li
+						button
+							a(href="/settings") Settings
+						ul
+							li
+								button
+									a(href="/notifications") Notifications
+						ul
+							li
+								button
+									a(href="privacy") Privacy
+								//- <div class="onoffswitch">
+								//- 	<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+								//- 	<label class="onoffswitch-label" for="myonoffswitch">
+								//- 		<span class="onoffswitch-inner"></span>
+								//- 		<span class="onoffswitch-switch"></span>
+								//- 	</label>
+								//- </div>
+						ul
+							li
+								button
+									a(href="/home") Logout
+
+
+		block content
+		
