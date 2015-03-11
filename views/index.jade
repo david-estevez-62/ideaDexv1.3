@@ -1,5 +1,5 @@
 doctype html
-html(lang='en')
+html(lang='en', ng-app="ideaApp")
 	head
 		meta(charset="utf-8")
 		link(rel="stylesheet", type="text/css", href="main.css")
@@ -16,13 +16,13 @@ html(lang='en')
 						label Username: 
 						input.loginusername(type="text", placeholder="username")
 					p
-					form.form2
+					form.form1
 						label Password:
-						input.loginpassword(type="text", placeholder="password")
+						input.loginpassword1(type="text", placeholder="password")
 				p
 				div
 					button
-						a(href="/home") Create Acct
+						a(href="/createacct") Create Acct
 				
 					button.loginbtn
 						a(href="/home") Login
@@ -35,3 +35,9 @@ html(lang='en')
 					span forgot password?
 						button.chgpw
 							a(href="/changePassword") Change Password
+			//- h2 Persons Ideas
+			//- ul#idea-list
+			//- 	for idea in Ideas
+			//- 		li.idea(data-id="#{idea._id")
+			//- 			strong = idea.category
+			//- 			a.

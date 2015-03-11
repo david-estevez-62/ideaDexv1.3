@@ -13,6 +13,9 @@ app.get('/', indexController.index);
 app.get('/home', function(req,res){
 	res.render('home')
 })
+app.get('/createacct', function(req,res){
+	res.render('createacct')
+})
 app.get('/search', function(req, res){
 	res.render('search')
 })

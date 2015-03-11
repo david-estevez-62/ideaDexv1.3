@@ -1,0 +1,47 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset="utf-8")
+		link(rel="stylesheet", type="text/css", href="main.css")
+		link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+		title IdeaDex
+
+	body.container
+			img.logoimg(src="/img/ideadexlogo.png")
+			div.login
+				div
+					h1 IdeaDex
+				div
+					form.form1
+						label Username: 
+						input.loginusername(type="text", placeholder="username")
+					p
+					form.form1
+						label Password:
+						input.loginpassword1(type="text", placeholder="password")
+					p
+					form.form1
+						label Cfm Password:
+						input.loginpassword2(type="text", placeholder="password")
+				p
+				div
+					button
+						a(href="/home") Create Acct
+
+
+		 /////////////////
+		//- Add Angular//
+	   /////////////////
+
+		//- div(ng-controller="newAcctController")
+		//- 	form.form(ng-submit="addAcct()")
+		//- 		.form-group
+		//- 			input.form-control(type="text", placeholder="username...", ng-model="acct.username")
+		//- 		.form-group
+		//- 			input.form-control(type="text", placeholder="password...", ng-model="acct.password")
+		//- 		.form-group
+		//- 			input.form-control(type="text", placeholder="cfm password...", ng-model="acct.password")
+		//- 		.form-group
+		//- 			input.btn.btn-primary(type="submit", value="Create Acct")
+
+		

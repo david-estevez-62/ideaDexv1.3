@@ -98,25 +98,23 @@ ul li:hover ul {
 	border:2px solid white;
 	border-radius:2px;
 }
-.form2{
-	color:black;
-	background: #64696D;
-	padding:9px;
-	width:340px;
-	height:45px;
-	border:2px solid white;
-	border-radius:2px;
-}
+
 .loginusername{
 	margin-left:20px;
 	padding-left:10px;
-	width:200px;
+	width:210px;
 }
-.loginpassword{
+.loginpassword1{
 	margin-left:20px;
 	padding-left:10px;
-	width:200px;
+	width:210px;
 }
+.loginpassword2{
+	margin-left:20px;
+	padding-left:10px;
+	width:177px;
+}
+
 .loginbtn{
 	margin-left:160px;
 	width:90px;
@@ -133,6 +131,13 @@ ul li:hover ul {
 	margin-top:5px;
 	border-radius:20px;
 }
+
+
+/*Create account page*/
+
+
+
+
 /*.createacctbtn{
 	margin-left:150px;
 }*/
