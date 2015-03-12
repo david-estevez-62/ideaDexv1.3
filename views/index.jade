@@ -1,5 +1,5 @@
 doctype html
-html(lang='en', ng-app="ideaApp")
+html(lang='en')
 	head
 		meta(charset="utf-8")
 		link(rel="stylesheet", type="text/css", href="main.css")
@@ -12,21 +12,17 @@ html(lang='en', ng-app="ideaApp")
 				div
 					h1 IdeaDex
 				div
-					form.form1
+				
+					form(action="/auth/login", method="post")
 						label Username: 
-						input.loginusername(type="text", placeholder="username")
-					p
-					form.form1
+						input.loginusername(type="text", name="username", placeholder="username")
 						label Password:
-						input.loginpassword1(type="text", placeholder="password")
+						input.loginpassword1(type="text", name="password", placeholder="password")
+						input(type="submit", value="Login", placeholder='login')
 				p
 				div
 					button
 						a(href="/createacct") Create Acct
-				
-					button.loginbtn
-						a(href="/home") Login
-					
 				div
 					span forgot username?
 						button.chgusr
