@@ -29,7 +29,7 @@ var performLogin = function(req, res, next, user){
 /**
  * Our base authentication controller object
  */
-var authenticationController = {
+var adminController = {
 
   // The route-handler for the /auth/login route. Meant to be
   // a page view that only shows login forms
@@ -134,4 +134,4 @@ var authenticationController = {
 };
 
 // Export our controller methods
-module.exports = authenticationController;
+module.exports = adminController;

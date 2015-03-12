@@ -1,24 +1,9 @@
 extends layout
 
 block content
-
+	h1 Welcome, {user.username}
 	form.post
 		input.postinput(type="text")
 		img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
 		input.submit(type="submit")
 	div.ideaBody
-
-/////////////////
-//- Add Angular//
-/////////////////
-	//- div(ng-controller="newIdeaController")
-	//- 	form.form(ng-submit="addIdea()")
-	//- 		.form-group
-	//- 			input.form-control(type="text", placeholder="Title...", ng-model="idea")
-	//- 		.form-group
-	//- 			input.btn.btn-primary(type="submit", value="Post")
-
-	//- div(ng-controller="listController")
-	//- 	div.news-item(ng-repeat="idea in ideas")
-	//- 		newsitem
-		

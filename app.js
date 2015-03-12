@@ -14,7 +14,7 @@ var passport = require('passport');
 var passportConfig = require('./config/passport');
 
 var indexController = require('./controllers/index.js');
-var authenticationController = require('./controllers/authentication');
+var adminController = require('./controllers/admin');
 
 mongoose.connect('mongodb://localhost/express-passport-local')
 
@@ -38,16 +38,16 @@ app.use(passport.session());
 
 
 // Our get request for viewing the login page
-app.get('/auth/login', authenticationController.login);
+app.get('/auth/login', adminController.login);
 
 // Post received from submitting the login form
-app.post('/auth/login', authenticationController.processLogin);
+app.post('/auth/login', adminController.processLogin);
 
 // Post received from submitting the signup form
-app.post('/auth/signup', authenticationController.processSignup);
+app.post('/auth/signup', adminController.processSignup);
 
 // Any requests to log out can be handled at this url
-app.get('/auth/logout', authenticationController.logout);
+app.get('/auth/logout', adminController.logout);
 
 // ***** IMPORTANT ***** //
 // By including this middleware (defined in our config/passport.js module.exports),
