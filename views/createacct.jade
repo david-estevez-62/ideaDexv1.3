@@ -12,7 +12,7 @@ html(lang='en')
 				div
 					h1 IdeaDex
 				div
-					form(action="/auth/signup", method="post")
+					form(action="/signup", method="post")
 						div.form1
 							label Username: 
 							input.loginusername(type="text", name="username", placeholder="username")
@@ -21,8 +21,9 @@ html(lang='en')
 							input.loginpassword1(type="text", name="password", placeholder="password")
 						div.form1
 							label Cfm Password:
-							input.loginpassword2(type="text", name="password" placeholder="password")
-						input(type="submit", value="Create Acct")
+							input.loginpassword2(type="text", name="password-verify" placeholder="password")
+						p
+						input.signupbtn(type="submit", value="Create Acct")
 
 
 

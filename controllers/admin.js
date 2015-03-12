@@ -40,7 +40,9 @@ var adminController = {
     // after use. Useful for quick messages like "failed to login."
     // In this case, we pull any existing flash message id'd as "error"
     // and pass it to the view.
-    res.redirect('/auth/login')
+    
+    //username or password doesn't match whats in the database
+    res.send('404 Error')
   },
 
   // This is the post handler for any incoming login attempts.
@@ -51,7 +53,11 @@ var adminController = {
     // in a variable and call it with the proper arguments afterwards.
     // We are using the "local" strategy defined (and used) in the
     // config/passport.js file
-    var authFunction = passport.authenticate('local', function(err, user, info){
+    var authFunction = passport.authenticate('localSignIn', function(err, user, info){
+      
+      ////////////////////////////
+      // console.log(arguments) //
+      ////////////////////////////
 
       // If there was an error, allow execution to move to the next middleware
       if(err) return next(err);
@@ -62,7 +68,7 @@ var adminController = {
       // to that handler.
       if(!user) {
         req.flash('error', 'Error logging in. Please try again.');
-        return res.redirect('/auth/login');
+        return res.redirect('/login');
       }
       
       // If we make it this far, the user has correctly authenticated with passport
@@ -80,6 +86,10 @@ var adminController = {
   // If none are found, the user is successfully added to the DB, it is safe to
   // assume that they are ready to log in, so we do that as well.
   processSignup: function(req, res, next){
+    
+    ///////////////////////////
+    // console.log(req.body) //
+    ///////////////////////////
 
     // Create a new instance of the User model with the data passed to this
     // handler. By using "param," we can safely assume that this route will
@@ -114,7 +124,7 @@ var adminController = {
         // Flash the message and redirect to the login view to
         // show it.
         req.flash('error', errorMessage);
-        return res.redirect('/auth/login');
+        return res.redirect('/login');
       }
 
       // If we make it this far, we are ready to log the user in.
@@ -129,7 +139,7 @@ var adminController = {
     req.logout();
 
     // Redirect back to the login page
-    res.redirect('/auth/login');
+    res.redirect('/login');
   }
 };
 

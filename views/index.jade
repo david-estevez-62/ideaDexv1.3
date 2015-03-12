@@ -13,16 +13,20 @@ html(lang='en')
 					h1 IdeaDex
 				div
 				
-					form(action="/auth/login", method="post")
-						label Username:
-						input.loginusername(type="text", name="username", placeholder="username")
-						label Password:
-						input.loginpassword1(type="text", name="password", placeholder="password")
-						input(type="submit", value="Sign in", placeholder='Sign in')
+					form(action="/login", method="post")
+						div.form1
+							label Username:
+							input.loginusername(type="text", name="username", placeholder="username")
+						div.form1
+							label Password:
+							input.loginpassword1(type="text", name="password", placeholder="password")
+						p
+						p
+							input.loginbtn1(type="submit", value="Sign in", placeholder='Sign in')
 				p
 				div
 					button
-						a(href="/createacct") Sign Up
+						a.loginbtn2(href="/createacct") Sign Up
 				div
 					span forgot username?
 						button.chgusr

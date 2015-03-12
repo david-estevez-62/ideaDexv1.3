@@ -38,16 +38,16 @@ app.use(passport.session());
 
 
 // Our get request for viewing the login page
-app.get('/auth/login', adminController.login);
+app.get('/login', adminController.login);
 
 // Post received from submitting the login form
-app.post('/auth/login', adminController.processLogin);
+app.post('/login', adminController.processLogin);
 
 // Post received from submitting the signup form
-app.post('/auth/signup', adminController.processSignup);
+app.post('/signup', adminController.processSignup);
 
 // Any requests to log out can be handled at this url
-app.get('/auth/logout', adminController.logout);
+app.get('/logout', adminController.logout);
 
 // ***** IMPORTANT ***** //
 // By including this middleware (defined in our config/passport.js module.exports),
@@ -63,8 +63,14 @@ app.use(passportConfig.isLoggedIn);
 // app.use(passportConfig.ensureAuthenticated);
 
 app.get('/home', function(req,res){
-	res.render('home')
+	res.render('home', {user: req.user})
 })
+
+// app.get('/users/:userid', readController.getByUser);
+// // If already following dont have follow button other have follow btn
+// app.get('/users/:userid/:otheruserid', readController.getByUser)
+
+
 app.get('/search', function(req, res){
 	res.render('search')
 })

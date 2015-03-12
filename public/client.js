@@ -18,9 +18,6 @@ $(".submit").on('click', function(e){
 
 
 
-
-
-
 // var ideaDelete = function(e){
 //   e.preventDefault();
 
