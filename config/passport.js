@@ -32,44 +32,78 @@ passport.deserializeUser(function(id, done){
 });
 
 
-// Here we define the strategy for our local authentication.
-// This will be utilized by passport whenever we reference it.
-var localStrategy = new LocalStrategy(function(username, password, done){
+var localSignUp = new LocalStrategy({
+  passReqToCallback: true
+},
+  function(req, username, password, next){
 
-  // Given a username and password, let's try to authenticate this user.
-  // We start by seeing if the username exists in our DB
-  User.findOne({username: username}, function(err, user){
+    // Look for user in the database with the same username
+    User.findOne({ 'local.username' : username}, function(err, user){
+      if (err) return next(err);
 
-    // If there was an error, allow execution to move to the next middleware
-    if(err) return done(err);
+      // If the user already exists, return false
+      if (user){
+        return next(null, false, req.flash('signUpError', 'That username is taken.'));
+      }
+      // Otherwise, create a new user 
+      else {
+        var newUser = new User();
+        
+        newUser.generateHash(password, function(err, hash){
 
-    // If no user was found with that username, continue to the next middleware
-    // and tell passport authentication failed.
-    if(!user) return done(null, false);
+          newUser.local.password = hash;
+          newUser.local.username = username;
+          newUser.email = req.body.email;
 
-    // A user has been found if we make it here, so let's check if the password
-    // they gave matches the one in the database. We are using the method defined
-    // on our user schema in models/user.js
-    user.comparePassword(password, function(err, isMatch){
-
-      // If there was an error, allow execution to move to the next middleware
-      if(err) return done(err);
-
-      // isMatch is true if the passwords match, and false if they don't
-      if(isMatch){
-        // Success! Tell passport we made it.
-        return done(err, user);
-      } else {
-        // Password was not correct. Tell passport the login failed.
-        return done(null, false);
+          // Save the user
+          newUser.save(function(err){
+            if (err) throw err;
+            return next(null, newUser);
+          });
+        });  
       }
     });
-  });
-});
+  }
+);
+
+// LOCAL SIGNIN 
+var localSignIn = new LocalStrategy({
+  passReqToCallback: true
+},
+  function(req, username, password, next){
+
+    // Check to see if user is in the database
+    User.findOne({'local.username':username}, function(err, user){
+
+      if (err) return next(err);
+
+      // If user is not found...
+      if (!user){
+        return next(null, false, req.flash('loginError', 'No user found.'));
+      }
+
+      user.comparePassword(password, function(err, isMatch){
+        if (err) return next(err);
+
+        // Passwords don't match...
+        if(!isMatch){
+          return next(null, false, req.flash('loginError', 'Wrong password.'));
+        }
+        // Passwords match... so return the user
+        else {
+          return next(null, user);
+        }
+      });
+
+    });
+  }
+);
 
 // Passport needs to know about our strategy definition above, so
 // we hook that in here.
-passport.use(localStrategy);
+passport.use('localSignUp', localSignUp);
+passport.use('localSignIn', localSignIn);
+
 
 
 // We don't really need to export anything from this file, since just
@@ -77,16 +111,12 @@ passport.use(localStrategy);
 // to block access to routes if the user isn't authenticated by redirecting
 // them to the login page. We'll see this used in app.js
 module.exports = {
-  ensureAuthenticated: function(req, res, next){
-
-    // If the current user is logged in...
+  isLoggedIn : function(req, res, next){
     if(req.isAuthenticated()){
-
-      // Middleware allows the execution chain to continue.
       return next();
     }
-
-    // If not, redirect to login
-    res.redirect('/auth/login');
+    else{
+      res.redirect('/auth/login');
+    }
   }
 };

@@ -57,7 +57,7 @@ app.get('/', indexController.index);
 app.get('/createacct', function(req,res){
 	res.render('createacct')
 })
-app.use(passportConfig.ensureAuthenticated);
+app.use(passportConfig.isLoggedIn);
 
 
 // app.use(passportConfig.ensureAuthenticated);
