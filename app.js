@@ -70,7 +70,9 @@ app.get('/home', function(req,res){
 // // If already following dont have follow button other have follow btn
 // app.get('/users/:userid/:otheruserid', readController.getByUser)
 
-
+app.get('/edit', function(req,res){
+	res.render('edit')
+})
 app.get('/search', function(req, res){
 	res.render('search')
 })

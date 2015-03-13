@@ -1,10 +1,7 @@
 
 //remove focus and border on click of (post) input event
 $(".postinput").on('click', function(){
-	$(this).css({
-			"border" : "none",
-			"outline" : "none"
-		})
+	$(this).addClass('noborder');
 })
 // submit idea to your wall
 $(".submit").on('click', function(e){
@@ -13,7 +10,12 @@ $(".submit").on('click', function(e){
 
 	var postData = $(".postinput").val();
 
+	$('.postinput').val('');
+	$('.postinput').removeClass('noborder');
+
 	$(".ideaBody").append('<p class="postedIdea">' + postData + '</p>')
+
+
 })
 
 

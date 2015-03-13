@@ -148,7 +148,10 @@ ul li:hover ul {
 	width:100px;
 	height:26px;
 }
-
+.noborder{
+	border: none;
+	outline: none;
+}
 
 /*Create account page*/
 
