@@ -17,12 +17,13 @@ var performLogin = function(req, res, next, user){
   // Passport injects functionality into the express ecosystem,
   // so we are able to call req.login and pass the user we want
   // logged in.
+  var id = user._id;
   req.login(user, function(err){
     // If there was an error, allow execution to move to the next middleware
     if(err) return next(err);
 
     // Otherwise, send the user to the homepage.
-    return res.redirect('/home');
+    return res.redirect('/home/' + id);
   });
 };
 

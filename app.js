@@ -37,6 +37,7 @@ app.use(passport.session());
 
 
 
+
 // Our get request for viewing the login page
 app.get('/login', adminController.login);
 
@@ -62,7 +63,7 @@ app.use(passportConfig.isLoggedIn);
 
 // app.use(passportConfig.ensureAuthenticated);
 
-app.get('/home', function(req,res){
+app.get('/home/:mongoid', function(req,res){
 	res.render('home', {user: req.user})
 })
 
@@ -72,6 +73,7 @@ app.get('/home', function(req,res){
 
 app.get('/edit', function(req,res){
 	res.render('edit')
+	console.log(user)
 })
 app.get('/search', function(req, res){
 	res.render('search')

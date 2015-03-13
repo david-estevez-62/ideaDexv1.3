@@ -1,9 +1,10 @@
 extends layout
 
 block content
-	h1 Welcome, #{user.username}
-	form.post
-		input.postinput(type="text")
-		img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
-		input.submit(type="submit", placeholder="Add your ideas here...")
-	div.ideaBody
+	div
+		h1 Welcome, #{user.username}
+		form.post
+			input.postinput(type="text")
+			img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
+			input.submit(type="submit", placeholder="Add your ideas here...")
+		div.ideaBody

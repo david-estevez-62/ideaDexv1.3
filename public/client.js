@@ -13,10 +13,12 @@ $(".submit").on('click', function(e){
 	$('.postinput').val('');
 	$('.postinput').removeClass('noborder');
 
-	$(".ideaBody").append('<p class="postedIdea">' + postData + '</p>')
-
-
+	$(".ideaBody").append('<p class="postedIdea">' + postData + '</p>');
 })
+
+
+
+// If searching through users then search through database
 
 
 
