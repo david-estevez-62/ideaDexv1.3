@@ -56,7 +56,7 @@ ul li:hover ul {
 	border-bottom: 0;
 	border-top: 0;
 }
-.postinput{
+.postinput {
 	width:400px;
 }
 .uploadTake {
@@ -86,8 +86,8 @@ ul li:hover ul {
 	padding: 5px 0 0 20px;
 	position:relative;
 	border-radius: 5px;
-	top:44%;
-	left:67%;
+	top:50%;
+	left:49%;
 }
 .form1{
 	color:black;
@@ -152,6 +152,25 @@ ul li:hover ul {
 	border: none;
 	outline: none;
 }
+.homelogo{
+	text-decoration: none;
+	color:white;
+}
+.homelogo:hover{
+	text-decoration: none;
+	color:white;
+}
+.edit{
+	display:inline-block;
+	position: fixed;
+	top:300px;
+	left:400px;
+}
+#privacytog {
+	margin:39px 0 0 950px;
+}
+
+
 
 /*Create account page*/
 
@@ -162,9 +181,7 @@ ul li:hover ul {
 	margin-left:150px;
 }*/
 
-/*img span{
-	visibility: hidden;
-}
+
 .onoffswitch {
     position: relative; width: 90px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
@@ -210,4 +227,4 @@ ul li:hover ul {
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px; 
-}*/
+}

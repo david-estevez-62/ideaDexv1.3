@@ -1,32 +1,31 @@
+
+
 var express = require('express');
 var bodyParser = require('body-parser');
-
+var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 
 var session = require('express-session');
-
-var cookieParser = require('cookie-parser');
-
 var flash = require('connect-flash');
-
 var passport = require('passport');
-
 var passportConfig = require('./config/passport');
 
 var indexController = require('./controllers/index.js');
 var adminController = require('./controllers/admin');
+var usersController = require('./controllers/users');
 
-mongoose.connect('mongodb://localhost/express-passport-local')
+
+mongoose.connect('mongodb://localhost/express-passport-local');
 
 var app = express();
 app.set('view engine', 'jade');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/views/');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 require('./models/seeds/acctsSeed.js');
 app.use(session({
   secret: 'keyboard cat'
-}))
+}));
 
 app.use(cookieParser());
 app.use(flash());
@@ -55,44 +54,68 @@ app.get('/logout', adminController.logout);
 // We can prevent unauthorized access to any route handler defined after this call
 // to .use()
 app.get('/', indexController.index);
-app.get('/createacct', function(req,res){
-	res.render('createacct')
-})
+app.get('/createacct', function (req, res) {
+  res.render('createacct');
+});
+
+
+
+
 app.use(passportConfig.isLoggedIn);
-
-
 // app.use(passportConfig.ensureAuthenticated);
 
-app.get('/home/:mongoid', function(req,res){
-	res.render('home', {user: req.user})
-})
+
+
+
+
+
+app.get('/home', function (req, res) {
+  res.render('home', {user: req.user});
+});
+
+// app.get('/:id/home', function(req,res){
+//  res.render('home', {user: req.user})
+// })
+// app.get('/:username/home', function(req,res){
+//  res.render('home', {user: req.user})
+// })
+
+
+
+
 
 // app.get('/users/:userid', readController.getByUser);
 // // If already following dont have follow button other have follow btn
 // app.get('/users/:userid/:otheruserid', readController.getByUser)
 
-app.get('/edit', function(req,res){
-	res.render('edit')
-	console.log(user)
-})
-app.get('/search', function(req, res){
-	res.render('search')
-})
-app.get('/discover', function(req,res){
-	res.render('discover')
-})
-app.get('/favorites', function(req, res){
-	res.render('favorites')
-})
-app.get('/notifications', function(req, res){
-	res.render('notifications')
-})
-app.get('/changeUsername', function(req, res){
-	res.render('changeUsername')
-})
-app.get('/changePassword', function(req, res){
-	res.render('changePassword')
-})
-var server = app.listen(6591, function() {
-	console.log('Express server listening on port ' + server.address().port);
+
+
+
+
+
+app.get('/edit', function (req, res) {
+  res.render('edit');
+});
+// app.post('/editSettings', usersController.EditSettings);
+
+app.get('/search', function (req, res) {
+  res.render('search');
+});
+app.get('/discover', function (req, res) {
+  res.render('discover');
+});
+app.get('/favorites', function (req, res) {
+  res.render('favorites');
+});
+app.get('/notifications', function (req, res) {
+  res.render('notifications');
+});
+app.get('/changeUsername', function (req, res) {
+  res.render('changeUsername');
+});
+app.get('/changePassword', function (req, res) {
+  res.render('changePassword');
+});
+var server = app.listen(6591, function () {
+  console.log('Express server listening on port ' + server.address().port);
 });

@@ -13,7 +13,7 @@ $(".submit").on('click', function(e){
 	$('.postinput').val('');
 	$('.postinput').removeClass('noborder');
 
-	$(".ideaBody").append('<p class="postedIdea">' + postData + '</p>');
+	$(".ideaBody").append('<p class="postedIdea"><h3>' + postData + '</h3></p>');
 })
 
 

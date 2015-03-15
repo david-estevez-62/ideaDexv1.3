@@ -7,15 +7,17 @@ html(lang='en')
 		title IdeaDex
 
 	body
-		.header IdeaDex
+		.header
+			a.homelogo(href="/home") IdeaDex
 		nav(role="navigation")
 			form.form-group
 				input.searchinput(type="text", placeholder="search for user")
-				input(type="submit", placeholder="Search")
+				input(type="submit", value="Search")
 		ul.menuBar
 			li
 				button
-					a.loginbtn2(href="/home/mongoid") Home
+					//- a.loginbtn2(href="/home/mongoid") Home
+					a.loginbtn2(href="/home") Home
 			li
 				button
 					a.loginbtn2(href="/discover") Discover

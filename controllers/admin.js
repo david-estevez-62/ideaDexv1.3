@@ -13,17 +13,18 @@ var User = require('../models/users');
  * structure matches. We also need to know the user model
  * we want to log in.
  */
-var performLogin = function(req, res, next, user){
+var performLogin = function (req, res, next, user) {
   // Passport injects functionality into the express ecosystem,
   // so we are able to call req.login and pass the user we want
   // logged in.
   var id = user._id;
-  req.login(user, function(err){
+  req.login(user, function (err) {
     // If there was an error, allow execution to move to the next middleware
-    if(err) return next(err);
+    if (err) return next(err);
 
     // Otherwise, send the user to the homepage.
-    return res.redirect('/home/' + id);
+    return res.redirect('/home');
+    // return res.redirect('/' +id+'/home');
   });
 };
 
@@ -34,7 +35,7 @@ var adminController = {
 
   // The route-handler for the /auth/login route. Meant to be
   // a page view that only shows login forms
-  login: function(req, res){
+  login: function (req, res) {
     // Render the login jade template.
     // We are using the "flash" system, which are variables
     // that can be sent from view to view and are removed
@@ -48,7 +49,7 @@ var adminController = {
 
   // This is the post handler for any incoming login attempts.
   // Passing "next" allows us to easily handle any errors that may occur.
-  processLogin: function(req, res, next){
+  processLogin: function (req, res, next) {
 
     // Passport's "authenticate" method returns a method, so we store it
     // in a variable and call it with the proper arguments afterwards.

@@ -2,4 +2,8 @@ extends layout
 
 block content
 	div
-		div#discover
+		form.post
+			input.postinput(type="text", placeholder="Add your ideas here...")
+			img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
+			input.submit(type="submit", value="Post")
+		div.ideaBody

@@ -3,8 +3,25 @@ extends layout
 block content
 	div
 		h1 Welcome, #{user.username}
-		form.post
-			input.postinput(type="text")
-			img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
-			input.submit(type="submit", placeholder="Add your ideas here...")
+		div.postform
+			form.post
+				input.postinput(type="text", placeholder='Add your ideas here...')
+				img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
+				input.submit(type="submit", value="Post")
+			div(class="onoffswitch", id='privacytog')
+				input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked)
+				label(class="onoffswitch-label" for="myonoffswitch")
+					span(class="onoffswitch-inner")
+					span(class="onoffswitch-switch")
 		div.ideaBody
+
+
+	//- h1 Welcome, #{user.username}
+	//- div(ng-controller="ideasController")
+	//- 	form.post(ng-submit="createIdea()")
+	//- 		input.postinput(type="text")
+	//- 		img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
+	//- 		input.submit(type="submit", placeholder="Add your ideas here...")
+	//- 	div.ideaBody
+	//- 		ul
+	//- 			li(ng-repeat="idea in ideas")
