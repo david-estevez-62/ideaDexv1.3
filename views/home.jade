@@ -4,8 +4,8 @@ block content
 	div
 		h1 Welcome, #{user.username}
 		div.postform
-			form.post
-				input.postinput(type="text", placeholder='Add your ideas here...')
+			form#addPost.post(action="/ideaPosted", method="post")
+				input#ideaPosted.postinput(type="text", placeholder='Add your ideas here...')
 				img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
 				input.submit(type="submit", value="Post")
 			div(class="onoffswitch", id='privacytog')

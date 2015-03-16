@@ -35,6 +35,7 @@ var userSchema = mongoose.Schema({
   imageUrl: String
 });
 
+
 /**
  * This allows us to hook into the pre-save DB flow. Our
  * callback will be called whenever a new user is about to

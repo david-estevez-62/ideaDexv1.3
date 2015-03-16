@@ -69,16 +69,17 @@ app.use(passportConfig.isLoggedIn);
 
 
 
-app.get('/home', function (req, res) {
-  res.render('home', {user: req.user});
-});
-
 // app.get('/:id/home', function(req,res){
 //  res.render('home', {user: req.user})
 // })
 // app.get('/:username/home', function(req,res){
 //  res.render('home', {user: req.user})
 // })
+app.get('/home', function (req, res) {
+  res.render('home', {user: req.user});
+});
+app.post('/ideaPosted', usersController.AddPost);
+
 
 
 
@@ -96,7 +97,8 @@ app.get('/home', function (req, res) {
 app.get('/edit', function (req, res) {
   res.render('edit');
 });
-// app.post('/editSettings', usersController.EditSettings);
+app.post('/editSettings', usersController.EditSettings)
+		// res.redirect('/guest-portal');
 
 app.get('/search', function (req, res) {
   res.render('search');

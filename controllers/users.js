@@ -1,6 +1,6 @@
-// var User = require('../models/users.js');
+var User = require('../models/users.js');
 
-// var usersController = {
+var usersController = {
 // //   getAll: function(req, res){
 // //     if(req.query._id){
 // //       // If there is a query parameter for _id,
@@ -29,24 +29,44 @@
 // //       res.send(result);
 // //     });
 // //   }
-// 	EditSettings: function(req, res) {
-// 		var data = req.body;
-// 		var id = req.user._id;
-// 		console.log('this is req.body in hostUpdateInfo: ', req.user);
-// 		User.findById(id, function(err, user) {
-// 			if (err) return handleErr(err);
-// 			user.username = data.username || user.username;
-// 			user.password = data.password || user.password;
-// 			// user.profilePic = data.profilePic || user.profilePic;
+	EditSettings: function (req, res) {
+		var data = req.body;
+		var id = req.user._id;
 		
-// 			user.save(function(err, user) {
-// 				if(err) return handleErr(err);
-// 				res.send(user);
-// 			});
-// 		});
-// 	}
+		User.findById(id, function(err, user) {
+			if (err) return handleErr(err);
+			user.username = data.username || user.username;
+			user.password = data.password || user.password;
+			user.imgUrl = data.imageUrl || user.imageUrl;
+			user.incomplete = false;
+			user.save(function(err, user) {
+				if(err) return handleErr(err);
+				res.send(user);
+			});
+			console.log('this is req.body in guestUpdateInfo: ', req.user);
+		});
 
 
-// };
+	},
 
-// module.exports = usersController;
+	AddPost: function (req, res) {
+		var data = req.body;
+		var id = req.user._id;
+		
+		console.log(id);
+		console.log('this is req.body in guestUpdateInfo: ', req.user);
+		User.findById(id, function(err, user) {
+			if (err) return handleErr(err);
+			user.ideas.newidea = data.ideas.newidea || user.ideas.newidea;
+			user.incomplete = false;
+			user.save(function(err, user){
+				if(err) return handleErr(err);
+				res.send(user);
+			});
+	});
+}
+
+	
+}
+
+module.exports = usersController;
