@@ -1,4 +1,4 @@
-
+$(document).ready(function(){
 //remove focus and border on click of (post) input event
 $(".postinput").on('click', function(){
 	$(this).addClass('noborder');
@@ -9,12 +9,27 @@ $(".submit").on('click', function(e){
 	e.preventDefault();
 
 	var postData = $(".postinput").val();
+	console.log(postData)
+
+	$('.postinput').removeClass('noborder');
+
+	console.log($('#addPost'))
+	$.post('/ideaPosted', {postData:postData} , function(data){
+		$('#ideaPosted').text(data.ideas.newidea.lastPost);
+		console.log(data.ideas.newidea)	
+	});
 
 	$('.postinput').val('');
-	$('.postinput').removeClass('noborder');
+
 
 	$(".ideaBody").append('<p class="postedIdea"><h3>' + postData + '</h3></p>');
 })
+
+})
+
+
+	
+
 
 
 

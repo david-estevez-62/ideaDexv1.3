@@ -1,9 +1,17 @@
 extends layout
 block content
-	div
-		p
-		p
-		p
-		p
-		p
-		div.ideaBody
+	div.searchlist
+		h3 User Search Results
+		table
+			thead
+				tr
+					th Username
+					th ID
+			tbody
+				for n in userlist
+					tr
+						td
+							a(href=n.username)
+								p= n.username
+						td
+							p= n._id

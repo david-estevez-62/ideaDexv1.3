@@ -52,20 +52,19 @@ var usersController = {
 	AddPost: function (req, res) {
 		var data = req.body;
 		var id = req.user._id;
-		
-		console.log(id);
+
+		console.log(data);
 		console.log('this is req.body in guestUpdateInfo: ', req.user);
 		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
-			user.ideas.newidea = data.ideas.newidea || user.ideas.newidea;
+			user.ideas.newIdea.lastPost = data.postData || user.ideas.newidea.lastPost;
 			user.incomplete = false;
 			user.save(function(err, user){
 				if(err) return handleErr(err);
 				res.send(user);
 			});
-	});
-}
-
+		});
+	}
 	
 }
 

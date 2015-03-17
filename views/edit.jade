@@ -2,7 +2,7 @@ extends layout
 
 block content
 	div.edit
-		form(action="/editSettings", method="post")
+		form#editSettings(action="/editSettings", method="post")
 			input#newUsername.form1(type="text", name="username", placeholder="username")
 			input#newPassword.form1(type="text", name="password", placeholder="password")
 			input#NewImage.form1(type="text", name="profimage", placeholder="image url")

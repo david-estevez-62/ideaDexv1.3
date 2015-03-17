@@ -20,7 +20,8 @@ var userSchema = mongoose.Schema({
   },
   ideas: {
     contents: [String],
-    newidea: {
+    newIdea: {
+      lastPost: String,
       username: String,
       date: {
         type: Date,

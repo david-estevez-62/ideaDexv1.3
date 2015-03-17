@@ -2,37 +2,37 @@ doctype html
 html(lang='en')
 	head
 		meta(charset="utf-8")
-		link(rel="stylesheet", type="text/css", href="main.css")
+		link(rel="stylesheet", type="text/css", href="/main.css")
 		link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
 		title IdeaDex
 
 	body
 		.header
-			a.homelogo(href="/home") IdeaDex
+			a.homelogo(href="/"+user.username+"/home") IdeaDex
 		nav(role="navigation")
-			form.form-group
-				input.searchinput(type="text", placeholder="search for user")
+			form.form-group(action="/"+user.username+"/search", method="post")
+				input#searchinput.searchinput(type="text", placeholder="search for user", name="search")
 				input(type="submit", value="Search")
 		ul.menuBar
 			li
 				button
 					//- a.loginbtn2(href="/home/mongoid") Home
-					a.loginbtn2(href="/home") Home
+					a.loginbtn2(href="/"+user.username+"/home") Home
 			li
 				button
-					a.loginbtn2(href="/discover") Discover
+					a.loginbtn2(href="/"+user.username+"/discover") Discover
 			li
 				button
-					a.loginbtn2(href="/favorites") Favorites
+					a.loginbtn2(href="/"+user.username+"/favorites") Favorites
 			li
 				button Settings
 				ul
 					li
 						button
-							a.loginbtn2(href="/notifications") Notifications
+							a.loginbtn2(href="/"+user.username+"/notifications") Notifications
 					li
 						button
-							a.loginbtn2(href="/edit") Edit
+							a.loginbtn2(href="/"+user.username+"/edit") Edit
 					li
 						button
 							a.loginbtn2(href="/") Logout

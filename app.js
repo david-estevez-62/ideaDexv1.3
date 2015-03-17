@@ -9,6 +9,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var passport = require('passport');
 var passportConfig = require('./config/passport');
+var User = require('./models/users.js');
 
 var indexController = require('./controllers/index.js');
 var adminController = require('./controllers/admin');
@@ -61,6 +62,7 @@ app.get('/createacct', function (req, res) {
 
 
 
+
 app.use(passportConfig.isLoggedIn);
 // app.use(passportConfig.ensureAuthenticated);
 
@@ -69,13 +71,14 @@ app.use(passportConfig.isLoggedIn);
 
 
 
-// app.get('/:id/home', function(req,res){
-//  res.render('home', {user: req.user})
-// })
+
 // app.get('/:username/home', function(req,res){
 //  res.render('home', {user: req.user})
 // })
-app.get('/home', function (req, res) {
+// app.get('/home', function (req, res) {
+//   res.render('home', {user: req.user});
+// });
+app.get('/:id/home', function (req, res) {
   res.render('home', {user: req.user});
 });
 app.post('/ideaPosted', usersController.AddPost);
@@ -93,24 +96,47 @@ app.post('/ideaPosted', usersController.AddPost);
 
 
 
+// app.get('/:id/edit', function (req, res) {
+//   var id = user._id;
+//   res.redirect('/'+id+'/edit');
+// });
+app.get('/:username/edit', function (req, res) {
+  res.render('edit', {user: req.user});
+});
+app.post('/editSettings', usersController.EditSettings);
+//res.redirect('/guest-portal');
 
-app.get('/edit', function (req, res) {
-  res.render('edit');
-});
-app.post('/editSettings', usersController.EditSettings)
-		// res.redirect('/guest-portal');
 
-app.get('/search', function (req, res) {
-  res.render('search');
+
+
+app.get('/:username/search', function (req, res) {
+  res.render('search', {user: req.user});
 });
-app.get('/discover', function (req, res) {
-  res.render('discover');
+app.post('/:username/search', function (req, res) {
+ 
+  // User.findOne({'username':username}, function(err, user){
+  User.find({username: new RegExp(req.body.search, 'i')}, function (err, user) {
+    // if (err) return next(err);
+
+        // // If user is not found...
+        // if (!user){
+        //   return next(null, false, req.flash('loginError', 'No user found.'));
+        // }
+        // console.log(user)
+
+      res.render('search', {userlist: user, user: req.user});
+    })
+   
+    // res.('/search')
 });
-app.get('/favorites', function (req, res) {
-  res.render('favorites');
+app.get('/:username/discover', function (req, res) {
+  res.render('discover', {user: req.user})
 });
-app.get('/notifications', function (req, res) {
-  res.render('notifications');
+app.get('/:username/favorites', function (req, res) {
+  res.render('favorites', {user: req.user})
+});
+app.get('/:username/notifications', function (req, res) {
+  res.render('notifications', {user: req.user})
 });
 app.get('/changeUsername', function (req, res) {
   res.render('changeUsername');
