@@ -9,6 +9,7 @@
 //       password: "password",
 //       ideas: {
 //         contents: ["this is a good idea", "this is my idea"],
+//         publicPost: ['this is a good idea'],
 //         newIdea: {
 //           lastPost: "this is my idea,"
 //           username: 'bob',
@@ -31,7 +32,7 @@
 //       password: 'password',
 //       ideas: {
 //         contents: ["this is a bad idea"],
-
+//         publicPost: ['this is a bad idea'],
 //         newIdea: {
 //           lastPost: 'this is a bad idea',
 //           username: 'steve',
@@ -52,12 +53,12 @@
 // });
 
 
-  // publicIdeas: ["this is my idea"],
-        // privIdeas: ["this is a good idea"],
+//   publicIdeas: ["this is my idea"],
+//         privIdeas: ["this is a good idea"],
 
 
-    // publicIdeas: [],
-  // privIdeas: ['this is a bad idea'],
+//     publicIdeas: [],
+//   privIdeas: ['this is a bad idea'],
 
 
 

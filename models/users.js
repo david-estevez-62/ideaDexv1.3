@@ -20,6 +20,7 @@ var userSchema = mongoose.Schema({
   },
   ideas: {
     contents: [String],
+    publicPost: [String],
     newIdea: {
       lastPost: String,
       username: String,

@@ -11,7 +11,7 @@ block content
 				for n in userlist
 					tr
 						td
-							a#findProfile(href=n.username)
+							a#findProfile(href='/user/#{user.username}/#{n.username}')
 								p#otherProfile= n.username
 						td
 							p= n._id

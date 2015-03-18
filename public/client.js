@@ -1,49 +1,64 @@
 $(document).ready(function(){
-//remove focus and border on click of (post) input event
-$(".postinput").on('click', function(){
-	$(this).addClass('noborder');
-})
-// submit idea to your wall
-// 
-$(".submit").on('click', function(e){
 
-	e.preventDefault();
 
-	var postData = $(".postinput").val();
-	console.log(postData)
-
-	$('.postinput').removeClass('noborder');
-
-	console.log($('#addPost'))
-	$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked')} , function(data){
-		// console.log(data);
-
-		$('#ideaPosted').text(data.ideas.newIdea.lastPost);
-
-		// if(data.ideas.contents){
-
-		// 	for (var i = 0; i < data.ideas.contents; i++){
-				
-		// 		$('#ideaPosted').text(data.ideas.contents[i].newidea.lastPost);
-
-		// 	}
-		// }
-		// console.log(data.ideas.newIdea)	
+	//remove focus and border on click of (post) input event
+	$(".postinput").on('click', function(){
+		$(this).addClass('noborder');
 	});
 
-	$('.postinput').val('');
 
 
-	$(".ideaBody").append('<p class="postedIdea"><h3>' + postData + '</h3></p>');
-})
+	// submit idea to your wall
+	$(".submit").on('click', function(e){
+
+		e.preventDefault();
+
+		var postData = $(".postinput").val();
+		console.log(postData)
+
+		$('.postinput').removeClass('noborder');
+
+		console.log($('#addPost'))
+		$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked')} , function(data){
+			// console.log(data);
+
+			$('#ideaPosted').text(data.ideas.newIdea.lastPost);
+
+		});
+
+		$('.postinput').val('');
 
 
-$('#findProfile').on('click', function () {
-	console.log('hello');
-	var otherUser = $('#otherProfile').value();
+		$(".ideaBody").prepend('<p class="postedIdea"><h3>' + postData + '</h3></p>');
+	});
 
 
-})
+
+	// Go to users profile that was clicked(Routes will depend whether friends or not)
+	$('#findProfile').on('click', function () {
+		
+		var findProf = $(this).value();
+		console.log(findProf);
+
+		// map over array to see if friends(or following)
+		// 
+		if (following.indexOf(findProf)) {
+
+			$.get('/username/friend/username', {findProf:findProf}, function() {
+
+			})
+
+		} else {
+
+			$.get('/username/username', {findProf:findProf}, function() {
+
+			})
+		}
+
+	})
+
+
+
 
 })
 

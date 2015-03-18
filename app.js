@@ -78,8 +78,13 @@ app.use(passportConfig.isLoggedIn);
 // app.get('/home', function (req, res) {
 //   res.render('home', {user: req.user});
 // });
+// Passing in ideas in res.render allows use to have access to ideas in jade
 app.get('/:id/home', function (req, res) {
-  res.render('home', {user: req.user});
+  var ideas = req.user.ideas.contents.reverse();
+  res.render('home', {
+    user: req.user,
+    ideas: ideas
+  });
 });
 app.post('/ideaPosted', usersController.AddPost);
 
@@ -134,15 +139,40 @@ app.post('/:username/search', function (req, res) {
 
 
 
-// app.get('/:username/', function (req, res) {
-//     User.find({username: req.body.username}, function (err, data) {
-//       if (err) res.send(err);
+app.get('/user/:me/:username', function (req, res) {
 
-//       console.log(req.body.username)
-//       res.render('searchProfile', user: req.body);
+    // var following = user.following.indexOf(req.params.username)
+    // console.log(following)
+    // if (following === -1) {
 
-//     })
-// })
+    // }
+
+    var x = User.find({following: req.params.username}, function (err, data) {
+      if (err) res.send(err);
+
+      // map over array of friends to see if friends with hyperlink username that was clicked on 
+      //////////////////////////////////////////////////////////////////
+      // if friends prefix with friend (i.e username/friend/username)//
+      // if not friends yet (i.e. username/username)                //
+      ///////////////////////////////////////////////////////////////
+
+      res.render('searchProfile', {user: req.body});
+    })
+    console.log(x);
+})
+  // User.find({following: req.params.username}, function (err, user) {
+  //     if (err) res.send(err);
+
+  //     var following = following.indexOf(req.params.username)
+
+  //     // map over array of friends to see if friends with hyperlink username that was clicked on 
+  //     //////////////////////////////////////////////////////////////////
+  //     // if friends prefix with friend (i.e username/friend/username)//
+  //     // if not friends yet (i.e. username/username)                //
+  //     ///////////////////////////////////////////////////////////////
+
+  //     console.log(following);
+  //     res.render('searchProfile', {user: req.body});
 
 
 
