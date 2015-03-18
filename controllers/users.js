@@ -57,7 +57,9 @@ var usersController = {
 		console.log('this is req.body in guestUpdateInfo: ', req.user);
 		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
-			user.ideas.newIdea.lastPost = data.postData || user.ideas.newidea.lastPost;
+			user.ideas.newIdea.lastPost = data.postData || user.ideas.newIdea.lastPost;
+			user.ideas.contents.push(user.ideas.newIdea.lastPost);
+			user.ideas.newIdea.privacy = data.privacy;
 			user.incomplete = false;
 			user.save(function(err, user){
 				if(err) return handleErr(err);

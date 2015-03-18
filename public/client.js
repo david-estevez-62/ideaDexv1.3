@@ -4,6 +4,7 @@ $(".postinput").on('click', function(){
 	$(this).addClass('noborder');
 })
 // submit idea to your wall
+// 
 $(".submit").on('click', function(e){
 
 	e.preventDefault();
@@ -14,15 +15,34 @@ $(".submit").on('click', function(e){
 	$('.postinput').removeClass('noborder');
 
 	console.log($('#addPost'))
-	$.post('/ideaPosted', {postData:postData} , function(data){
-		$('#ideaPosted').text(data.ideas.newidea.lastPost);
-		console.log(data.ideas.newidea)	
+	$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked')} , function(data){
+		// console.log(data);
+
+		$('#ideaPosted').text(data.ideas.newIdea.lastPost);
+
+		// if(data.ideas.contents){
+
+		// 	for (var i = 0; i < data.ideas.contents; i++){
+				
+		// 		$('#ideaPosted').text(data.ideas.contents[i].newidea.lastPost);
+
+		// 	}
+		// }
+		// console.log(data.ideas.newIdea)	
 	});
 
 	$('.postinput').val('');
 
 
 	$(".ideaBody").append('<p class="postedIdea"><h3>' + postData + '</h3></p>');
+})
+
+
+$('#findProfile').on('click', function () {
+	console.log('hello');
+	var otherUser = $('#otherProfile').value();
+
+
 })
 
 })

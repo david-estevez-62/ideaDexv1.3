@@ -129,6 +129,28 @@ app.post('/:username/search', function (req, res) {
    
     // res.('/search')
 });
+
+
+
+
+
+// app.get('/:username/', function (req, res) {
+//     User.find({username: req.body.username}, function (err, data) {
+//       if (err) res.send(err);
+
+//       console.log(req.body.username)
+//       res.render('searchProfile', user: req.body);
+
+//     })
+// })
+
+
+
+
+
+
+
+
 app.get('/:username/discover', function (req, res) {
   res.render('discover', {user: req.user})
 });
