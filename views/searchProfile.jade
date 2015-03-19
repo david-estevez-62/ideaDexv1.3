@@ -4,10 +4,11 @@ block content
 	h3 You are surfing #{user.username}s profile
 	if (isFollowing === -1)
 		button.btn.btn-default(type='submit', action="/follow", method="post") Follow
-	if (publicPosts.length > 0)
-		table
-			tbody
-				for post in publicPosts
-					tr
-						td
-							p= post
+	div.ideaBody
+		if (publicPosts.length > 0)
+			table
+				tbody
+					for post in publicPosts
+						tr
+							td
+								p= post
