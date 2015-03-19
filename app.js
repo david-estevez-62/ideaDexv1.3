@@ -16,7 +16,7 @@ var adminController = require('./controllers/admin');
 var usersController = require('./controllers/users');
 
 
-mongoose.connect('mongodb://localhost/express-passport-local');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/express-passport-local');
 
 var app = express();
 app.set('view engine', 'jade');
@@ -213,6 +213,6 @@ app.get('/changeUsername', function (req, res) {
 app.get('/changePassword', function (req, res) {
   res.render('changePassword');
 });
-var server = app.listen(6591, function () {
+var server = app.listen(process.env.PORT || 6591, function () {
   console.log('Express server listening on port ' + server.address().port);
 });
