@@ -1,6 +1,7 @@
 extends layout
 block content
-	h3 You are surfing someones profile
+	br
+	h3 You are surfing #{user.username}s profile
 	if (isFollowing === -1)
 		button.btn.btn-default(type='submit', action="/follow", method="post") Follow
 	if (publicPosts.length > 0)

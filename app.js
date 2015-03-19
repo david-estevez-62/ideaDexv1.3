@@ -157,7 +157,7 @@ app.get('/user/:me/:username', function (req, res) {
       console.log(data[0].ideas.publicPost)
 
       res.render('searchProfile', {
-        user: req.body,
+        user: req.params,
         isFollowing: isFollowing,
         publicPosts: data[0].ideas.publicPost
       });
