@@ -141,24 +141,41 @@ app.post('/:username/search', function (req, res) {
 
 app.get('/user/:me/:username', function (req, res) {
 
-    // var following = user.following.indexOf(req.params.username)
-    // console.log(following)
-    // if (following === -1) {
+//     // var following = user.following.indexOf(req.params.username)
+//     // console.log(following)
+//     // if (following === -1) {
 
-    // }
+//     // }
+    
+    var isFollowing = req.user.following.indexOf(req.params.username)
 
-    var x = User.find({following: req.params.username}, function (err, data) {
-      if (err) res.send(err);
+    User.find({username: req.params.username}, function (err, data) {
+      if (err) {
+        res.send(err);
+      }
 
-      // map over array of friends to see if friends with hyperlink username that was clicked on 
-      //////////////////////////////////////////////////////////////////
-      // if friends prefix with friend (i.e username/friend/username)//
-      // if not friends yet (i.e. username/username)                //
-      ///////////////////////////////////////////////////////////////
+      console.log(data[0].ideas.publicPost)
 
-      res.render('searchProfile', {user: req.body});
-    })
-    console.log(x);
+      res.render('searchProfile', {
+        user: req.body,
+        isFollowing: isFollowing,
+        publicPosts: data[0].ideas.publicPost
+      });
+
+    });
+
+    
+
+
+//     // console.log(isFollowing);
+//     // if (isFollowing === -1) {
+//     //   req.params.ideas.publicPost
+//     //   User.find({username: req.params.username}, function(err, user) {
+//     //     var publicPosts = 
+//     //   })
+//     // } else {
+
+//     // }
 })
   // User.find({following: req.params.username}, function (err, user) {
   //     if (err) res.send(err);

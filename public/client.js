@@ -35,27 +35,11 @@ $(document).ready(function(){
 
 
 	// Go to users profile that was clicked(Routes will depend whether friends or not)
-	$('#findProfile').on('click', function () {
+	// $('#findProfile').on('click', function () {
 		
-		var findProf = $(this).value();
-		console.log(findProf);
+		
 
-		// map over array to see if friends(or following)
-		// 
-		if (following.indexOf(findProf)) {
-
-			$.get('/username/friend/username', {findProf:findProf}, function() {
-
-			})
-
-		} else {
-
-			$.get('/username/username', {findProf:findProf}, function() {
-
-			})
-		}
-
-	})
+	// })
 
 
 

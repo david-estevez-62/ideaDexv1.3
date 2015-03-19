@@ -1,11 +1,13 @@
 extends layout
 block content
-
 	h3 You are surfing someones profile
-	div 
-		p lastpost
-		//- table
-		//- tbody
-		//- 	for n in publiclist
-		//- 		tr
-		//- 			td
+	if (isFollowing === -1)
+		button.btn.btn-default(type='submit', action="/follow", method="post") Follow
+	if (publicPosts.length > 0)
+		table
+			tbody
+				for n in publicPosts
+					tr
+						td
+							p= n.publicPost
+
