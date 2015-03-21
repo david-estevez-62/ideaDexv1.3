@@ -7,7 +7,7 @@ block content
 		div.postform
 			form#addPost.post(action="/ideaPosted", method="post")
 				input#ideaPosted.postinput(type="text", placeholder='Add your ideas here...')
-				img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
+				img.uploadTake(src="/img/uploadpicIcon.png", width="25px", type="file", name="pic", accept="image/*")
 				input.submit(type="submit", value="Post")
 			div(class="onoffswitch", id='privacytog')
 				input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked)
