@@ -80,10 +80,10 @@ app.use(passportConfig.isLoggedIn);
 // });
 // Passing in ideas in res.render allows use to have access to ideas in jade
 app.get('/:id/home', function (req, res) {
-  var ideas = req.user.ideas.contents.reverse();
+  var posts = req.user.posts.reverse();
   res.render('home', {
     user: req.user,
-    ideas: ideas
+    posts: posts
   });
 });
 app.post('/ideaPosted', usersController.AddPost);
@@ -154,18 +154,15 @@ app.get('/user/:me/:username', function (req, res) {
         res.send(err);
       }
 
-      console.log(data[0].ideas.publicPost)
+     
 
       res.render('searchProfile', {
         user: req.params,
         isFollowing: isFollowing,
-        publicPosts: data[0].ideas.publicPost
+        publicPosts: data[0].publicPosts
       });
 
     });
-
-    
-
 
 //     // console.log(isFollowing);
 //     // if (isFollowing === -1) {
@@ -177,6 +174,15 @@ app.get('/user/:me/:username', function (req, res) {
 
 //     // }
 })
+
+
+
+
+
+
+
+
+
   // User.find({following: req.params.username}, function (err, user) {
   //     if (err) res.send(err);
 
@@ -196,11 +202,10 @@ app.get('/user/:me/:username', function (req, res) {
 
 
 
-
-
 app.get('/:username/discover', function (req, res) {
   res.render('discover', {user: req.user})
 });
+
 app.get('/:username/favorites', function (req, res) {
   res.render('favorites', {user: req.user})
 });

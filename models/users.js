@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var shortid= require('shortid');
+// var shortid = require('shortid');
 
 /**
  * Create a schema (blueprint) for all users in the database.
@@ -18,20 +20,27 @@ var userSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  ideas: {
-    contents: [String],
-    publicPost: [String],
-    newIdea: {
-      lastPost: String,
-      username: String,
-      date: {
-        type: Date,
-        default: new Date()
-      },
-      privacy: Boolean,
-      category: String
-    },
-  },
+
+  posts: [
+
+      {
+        contents: String,
+        _id: {
+            type: String,
+            unique: true,
+            'default': shortid.generate
+        },
+        username: String,
+        date: {
+          type: Date,
+          default: new Date()
+        },
+        privacy: Boolean,
+        category: String
+      }
+
+    ],
+  publicPosts: [],
   followers: [String],
   following: [String],
   imageUrl: String

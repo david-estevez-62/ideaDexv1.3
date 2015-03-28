@@ -15,9 +15,9 @@ block content
 					span(class="onoffswitch-inner")
 					span(class="onoffswitch-switch")
 		div.ideaBody
-			for idea in ideas
+			for post in posts
 				p
-					h3= idea
+					h3= post.contents
 
 	//- form(action="demo_form.asp")
 	//- 	input(type="file" name="pic" accept="image/*")

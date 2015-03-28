@@ -7,22 +7,36 @@ $(document).ready(function(){
 	});
 
 
+	// var uniqueId = 0;
 
 	// submit idea to your wall
 	$(".submit").on('click', function(e){
+
+
 
 		e.preventDefault();
 
 		var postData = $(".postinput").val();
 		console.log(postData)
 
+		// if (uniqueId === 0) {
+		// 	uniqueId++
+		// }
+		// uniqueId++
+		// console.log(uniqueId);
+		
+
+
+
 		$('.postinput').removeClass('noborder');
 
-		console.log($('#addPost'))
+		console.log($('#addPost'));
+
+
 		$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked')} , function(data){
 			// console.log(data);
 
-			$('#ideaPosted').text(data.ideas.newIdea.lastPost);
+			$('#ideaPosted').text(data.posts);
 
 		});
 
@@ -31,7 +45,6 @@ $(document).ready(function(){
 
 		$(".ideaBody").prepend('<p class="postedIdea"><h3>' + postData + '</h3></p>');
 	});
-
 
 
 	// Go to users profile that was clicked(Routes will depend whether friends or not)
