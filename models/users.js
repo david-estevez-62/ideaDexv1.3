@@ -24,7 +24,7 @@ var userSchema = mongoose.Schema({
   posts: [
 
       {
-        contents: String,
+        contents: [],
         _id: {
             type: String,
             unique: true,
@@ -43,6 +43,7 @@ var userSchema = mongoose.Schema({
   publicPosts: [],
   followers: [String],
   following: [String],
+  discover: [],
   imageUrl: String
 });
 

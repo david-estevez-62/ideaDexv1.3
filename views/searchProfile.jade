@@ -2,13 +2,21 @@ extends layout
 block content
 	br
 	h3 You are surfing #{user.username}s profile
+	h5(display: hidden) #{user.username}
 	if (isFollowing === -1)
-		button.btn.btn-default(type='submit', action="/follow", method="post") Follow
-	div.ideaBody
+		form(method="post", action="/follow")
+			input(type="hidden", name="name", value="value") 
+			input#submit2(type="submit", value="Follow")
+	div
+		table.ideaTable
+				tr
+					td
+					td
+					td
 		if (publicPosts.length > 0)
-			table
-				tbody
-					for post in publicPosts
-						tr
-							td
-								h3= post.contents
+			for post in publicPosts
+				tr
+					td
+					td.ideaBody
+						h3= post.contents
+					td.delete(href="#") Remove

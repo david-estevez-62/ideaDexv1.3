@@ -28,12 +28,7 @@ var usersController = {
 // // // 
 // //   // },
 
-// //   createNew: function(req, res){
-// //     var newUser = new User(req.body);
-// //     newUser.save(function(err, result){
-// //       res.send(result);
-// //     });
-// //   }
+
 	EditSettings: function (req, res) {
 		var data = req.body;
 		var id = req.user.username;
@@ -46,7 +41,7 @@ var usersController = {
 			user.incomplete = false;
 			user.save(function(err, user) {
 				if(err) return handleErr(err);
-				res.send(user);
+				res.redirect('/'+id+'/edit')
 			});
 			console.log('this is req.body in guestUpdateInfo: ', req.user);
 		});
@@ -55,11 +50,8 @@ var usersController = {
 	AddPost: function (req, res) {
 		var data = req.body;
 		var id = req.user._id;
+		var username = req.user.username;
 
-		// var lastElem = req.user.posts.pop();
-		// var pluck = _.pluck(lastElem, 'uid');
-		// console.log(lastElem);
-		// console.log(pluck);
 	
 		
 
@@ -67,29 +59,7 @@ var usersController = {
 		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
 
-			
-
-
-			// var id = _.pluck((user.posts), "uid");
-			// console.log(id);
-
-
-
-
-			// var lastId = Number(id.pop());
-
-			// console.log(lastId);
-
-			// var addId = lastId++
-		// console.log(addId);
-		
-		 	// var pluck = _.pluck((user.posts), "uid");
-		 	// console.log(pluck);
-			// var lastElem = pluck.pop();
-
-			// console.log(lastElem);
-			// var add1 = lastElem++;
-		var uid =shortid.generate();
+		var uid = shortid.generate();
 
 		newPost = {
 				contents: data.postData,
@@ -104,9 +74,16 @@ var usersController = {
 
 		   	if (newPost.privacy === 'false') {
 		   		user.publicPosts.push(newPost);
+
+		   		// console.log(User.find({username:username}))
+
+		   		// // create a for loop, for all followers in users list push to their discover array
+		   		// User.find({followers:username}, function(err, users){
+		   		// 	console.log(users);
+		   		// 	// users.discover.push(newPost);
+		   		// })
+
 		   	}
-
-
 
 			user.save(function(err, user){
 				if(err) return handleErr(err);
@@ -117,7 +94,60 @@ var usersController = {
 		});
 
 
+	},
+	FollowUser: function(req,res){
+		var data = req.body;
+		var id = req.user._id;
+		var username = req.user.username;
+
+	    User.findById(id, function (err, user) {
+	    if (err) return handleErr(err);
+
+		user.following.push(data.usersProf);
+
+		    user.save();
+
+		});
+
+		User.findOne({username:data.usersProf}, function (err, user) {
+	    if (err) return handleErr(err);
+
+		user.followers.push(username);
+			console.log(data.usersProf);
+
+		    user.save();
+		    res.redirect('back');
+		    // res.redirect('/user/' + username + '/' + data.usersProf);
+
+		});
+
 	}
+	// ,
+	// PushPublic: function(req,res){
+	// 	var data = req.body;
+	// 	var username = req.user.username;
+
+	// 	User.find({followers: username}, function(err, user) {
+	// 		user.followers.push()
+	// 	});
+
+	// }
+
+
+
+	// RemovePost: function(req, res){
+	// 	var data = req.body;
+	// 	var id = req.user._id;
+
+	// 	User.findById(id, function(err, user) {
+	// 		if (err) return handleErr(err);
+	// 		var toDelete = data.targetId;
+	// 		User.findByIdAndRemove(toDelete, function(err, result){
+
+	// 		})
+
+	// 	})
+	// }
 
 }
 

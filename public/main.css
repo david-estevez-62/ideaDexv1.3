@@ -1,3 +1,4 @@
+/*layout jade*/
 .header {
     width:100%;
     height:50px;
@@ -7,12 +8,27 @@
     font-size:24px;
     padding: 10px 0 0 20px;
 }
+.homelogo{
+	text-decoration: none;
+	color:white;
+}
+.homelogo:hover{
+	text-decoration: none;
+	color:white;
+}
 .form-group{
 	float: left;
-	position: absolute
+	position: absolute;
 }
 .searchinput {
 	width:225px;
+}
+.searchlist {
+	margin-top:100px;
+	margin-left:500px;
+}
+#search{
+	width: 20em;  height: 2em;
 }
 .menuBar {
   float: right;
@@ -38,24 +54,21 @@ ul li:hover ul {
 	opacity: 1;
 	visibility: visible;
 }
+
+
+.wrapper{
+	width:100%;
+	height:100%;
+	background-color: blue;
+}
+
+
+
+/*home jade - home profile page*/
 .post {
   position:relative;
   top:70px;
   left:32%;
-}
-.postedIdea {
-	background-color: red;
-}
-.ideaBody {
-	position: relative;
-	top:100px;
-	left:20%;
-	width:900px;
-	min-height: 300px;
-	height: auto;
-	border: 2px solid black;
-	border-bottom: 0;
-	border-top: 0;
 }
 .postinput {
 	width:400px;
@@ -67,12 +80,52 @@ ul li:hover ul {
 	height:25px;
 	width:32px;
 }
-.submit{
+#submit1{
 	position: relative;
 	left:-26px;
 }
+#privacytog {
+	margin:39px 0 0 950px;
+}
 
-/*Login Page*/
+.noborder{
+	border: none;
+	outline: none;
+}
+.postedIdea {
+	background-color: lightblue;
+	font-size: 18px;
+}
+.ideaTable{
+	min-height: 300px;
+	height: auto;
+	margin:4% 0 0 19%;
+/*	border: 5px solid black;
+	border-bottom:0;
+	border-top:0;*/
+}
+.ideaTable tr td:nth-child(2) {
+	/*position: relative;
+	top:100px;
+	left:20%;*/
+	width:900px;
+	height:100px;
+
+	border: 4px solid black;
+	border-bottom: 0;
+	border-top: 0;
+}
+.delete {
+  border: 2px solid black;
+  padding:10px;
+}
+
+
+
+
+
+
+/*index jade - login Page*/
 .container{
 	width:100%;
 	height:100%;
@@ -100,7 +153,6 @@ ul li:hover ul {
 	border-radius:2px;
 	margin:5px;
 }
-
 .loginusername{
 	color:black;
 	margin-left:20px;
@@ -117,11 +169,6 @@ ul li:hover ul {
 	margin-left:20px;
 	padding-left:10px;
 	width:177px;
-}
-
-.loginbtn{
-	margin-left:160px;
-	width:90px;
 }
 .logoimg{
 	position:fixed;
@@ -142,25 +189,23 @@ ul li:hover ul {
 }
 .loginbtn2{
 	color:black;
-
 }
-.signupbtn{
+.loginbtn2:hover{
+	text-decoration: none;
+	color: black;
+}
+.signupbtn {
 	color:black;
 	width:100px;
 	height:26px;
 }
-.noborder{
-	border: none;
-	outline: none;
-}
-.homelogo{
-	text-decoration: none;
-	color:white;
-}
-.homelogo:hover{
-	text-decoration: none;
-	color:white;
-}
+
+
+
+
+
+
+/*edit jade*/
 .edit{
 	display:inline-block;
 	position: fixed;
@@ -168,24 +213,14 @@ ul li:hover ul {
 	top:300px;
 	left:500px;
 }
-#privacytog {
-	margin:39px 0 0 950px;
-}
-.searchlist {
-	margin-top:100px;
-	margin-left:500px;
-}
-
-
-/*Create account page*/
 
 
 
 
-/*.createacctbtn{
-	margin-left:150px;
-}*/
 
+
+
+/*privacy btn*/
 .onoffswitch {
     position: relative; width: 90px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;

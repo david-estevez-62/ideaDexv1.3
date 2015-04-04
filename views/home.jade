@@ -4,20 +4,31 @@ extends layout
 block content
 	div
 		h1 Welcome, #{user.username}
-		div.postform
+		div
 			form#addPost.post(action="/ideaPosted", method="post")
 				input#ideaPosted.postinput(type="text", placeholder='Add your ideas here...')
 				img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
-				input.submit(type="submit", value="Post")
-			div(class="onoffswitch", id='privacytog')
+				input#submit1(type="submit", value="Post")
+			div.privacy(class="onoffswitch", id='privacytog')
 				input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked)
 				label(class="onoffswitch-label" for="myonoffswitch")
 					span(class="onoffswitch-inner")
 					span(class="onoffswitch-switch")
-		div.ideaBody
-			for post in posts
-				p
-					h3= post.contents
+			//- form(action="/ideaPosted", method="post")
+			//- 	input(type='file', name='pic', accept="image/*", id="upload")
+			//- 	input(type='submit')
+		div
+			table.ideaTable
+				tr
+					td
+					td
+				for post in posts		
+					tr
+						td
+						td.ideaBody
+							h3= post.contents
+						td.delete(href="#") Remove
+
 
 	//- form(action="demo_form.asp")
 	//- 	input(type="file" name="pic" accept="image/*")

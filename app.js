@@ -79,7 +79,7 @@ app.use(passportConfig.isLoggedIn);
 //   res.render('home', {user: req.user});
 // });
 // Passing in ideas in res.render allows use to have access to ideas in jade
-app.get('/:id/home', function (req, res) {
+app.get('/:username/home', function (req, res) {
   var posts = req.user.posts.reverse();
   res.render('home', {
     user: req.user,
@@ -87,6 +87,7 @@ app.get('/:id/home', function (req, res) {
   });
 });
 app.post('/ideaPosted', usersController.AddPost);
+// app.post('/ideaRemoved', usersController.RemovePost)
 
 
 
@@ -140,6 +141,25 @@ app.post('/:username/search', function (req, res) {
 
 
 app.get('/user/:me/:username', function (req, res) {
+  var isFollowing = req.user.following.indexOf(req.params.username);
+
+      User.find({username: req.params.username}, function (err, data) {
+        if (err) {
+          res.send(err);
+        }
+
+        res.render('searchProfile', {
+          user: req.params,
+          isFollowing: isFollowing,
+          publicPosts: data[0].publicPosts
+        });
+
+    });
+});
+app.post('/follow', usersController.FollowUser);
+
+
+
 
 //     // var following = user.following.indexOf(req.params.username)
 //     // console.log(following)
@@ -147,22 +167,6 @@ app.get('/user/:me/:username', function (req, res) {
 
 //     // }
     
-    var isFollowing = req.user.following.indexOf(req.params.username)
-
-    User.find({username: req.params.username}, function (err, data) {
-      if (err) {
-        res.send(err);
-      }
-
-     
-
-      res.render('searchProfile', {
-        user: req.params,
-        isFollowing: isFollowing,
-        publicPosts: data[0].publicPosts
-      });
-
-    });
 
 //     // console.log(isFollowing);
 //     // if (isFollowing === -1) {
@@ -173,7 +177,7 @@ app.get('/user/:me/:username', function (req, res) {
 //     // } else {
 
 //     // }
-})
+
 
 
 

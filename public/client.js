@@ -10,23 +10,13 @@ $(document).ready(function(){
 	// var uniqueId = 0;
 
 	// submit idea to your wall
-	$(".submit").on('click', function(e){
-
-
+	$("#submit1").on('click', function(e){
 
 		e.preventDefault();
 
 		var postData = $(".postinput").val();
+		// var postData2 = $('#upload').val();
 		console.log(postData)
-
-		// if (uniqueId === 0) {
-		// 	uniqueId++
-		// }
-		// uniqueId++
-		// console.log(uniqueId);
-		
-
-
 
 		$('.postinput').removeClass('noborder');
 
@@ -43,9 +33,43 @@ $(document).ready(function(){
 		$('.postinput').val('');
 
 
-		$(".ideaBody").prepend('<p class="postedIdea"><h3>' + postData + '</h3></p>');
+		$(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');
 	});
 
+
+
+
+
+
+
+	$("#submit2").on('click', function(e){
+
+
+
+		e.preventDefault();
+
+		var usersProf = $('h5').text()
+
+		// if (uniqueId === 0) {
+		// 	uniqueId++
+		// }
+		// uniqueId++
+		// console.log(uniqueId);
+		console.log(usersProf);
+
+
+		$.post('/follow', {usersProf:usersProf} , function(data){
+			// console.log(data);
+
+			$('h5').text(data.follow)
+
+		});
+
+		// $('#submit').remove();
+
+
+		
+	});
 
 	// Go to users profile that was clicked(Routes will depend whether friends or not)
 	// $('#findProfile').on('click', function () {
@@ -60,7 +84,24 @@ $(document).ready(function(){
 })
 
 
-	
+// var ideaDelete = function(e){
+//   e.preventDefault();
+
+//   var originalIdeaElement = $(this).closest('.idea');
+//   var targetId = originalIdeaElement.attr('data-id');
+
+//   $.post('/ideaRemoved', {targetId: targetId}, function(dataFromServer){
+//     // When a success response is sent back
+//     originalIdeaElement.remove();
+//   });
+// };	
+
+
+
+
+
+
+
 
 
 
@@ -69,17 +110,7 @@ $(document).ready(function(){
 
 
 
-// var ideaDelete = function(e){
-//   e.preventDefault();
 
-//   var originalIdeaElement = $(this).closest('.idea');
-//   var targetId = originalIdeaElement.attr('data-id');
-
-//   $.post('/api/deleteIdea', {targetId: targetId}, function(dataFromServer){
-//     // When a success response is sent back
-//     originalIdeaElement.remove();
-//   });
-// };
 
 // // CLIENT-SIDE
 
