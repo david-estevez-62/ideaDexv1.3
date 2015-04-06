@@ -22,12 +22,26 @@ block content
 				tr
 					td
 					td
+					td
+					td
 				for post in posts		
 					tr
 						td
-						td.ideaBody
+						td(data-postid2=post.username)
+							img.upvote(src='/img/thumbsup.png', data-postid=post._id)
+						td(rowspan:3).ideaBody
 							h3= post.contents
-						td.delete(href="#") Remove
+							h6= post.date
+						td(rowspan:3)
+							a.delete(href="#", data-postid=post._id) Remove
+					tr
+						td
+						td
+							h3.rating= post.rating
+					tr
+						td
+						td
+							img.downvote(src='/img/thumbsdown.png', data-postid=post._id)
 
 
 	//- form(action="demo_form.asp")
@@ -35,21 +49,4 @@ block content
 	//- 	input(type="submit")
 
 	
-
-
-
-
-
-
-
-
-
-	//- h1 Welcome, #{user.username}
-	//- div(ng-controller="ideasController")
-	//- 	form.post(ng-submit="createIdea()")
-	//- 		input.postinput(type="text")
-	//- 		img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
-	//- 		input.submit(type="submit", placeholder="Add your ideas here...")
-	//- 	div.ideaBody
-	//- 		ul
-	//- 			li(ng-repeat="idea in ideas")
+	

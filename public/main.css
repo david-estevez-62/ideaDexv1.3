@@ -54,13 +54,29 @@ ul li:hover ul {
 	opacity: 1;
 	visibility: visible;
 }
+.navbtn1{
+	color:black;
+	width:67px;
+	height:26px;
+}
+.navbtn1:hover{
+	text-decoration: none;
+	color:black;
+}
+.navbtn2{
+	color:black;
+}
+.navbtn2:hover{
+	text-decoration: none;
+	color: black;
+}
 
 
-.wrapper{
+/*.wrapper{
 	width:100%;
 	height:100%;
 	background-color: blue;
-}
+}*/
 
 
 
@@ -104,7 +120,7 @@ ul li:hover ul {
 	border-bottom:0;
 	border-top:0;*/
 }
-.ideaTable tr td:nth-child(2) {
+.ideaTable tr td:nth-child(3) {
 	/*position: relative;
 	top:100px;
 	left:20%;*/
@@ -118,8 +134,8 @@ ul li:hover ul {
 .delete {
   border: 2px solid black;
   padding:10px;
+  height:100px;
 }
-
 
 
 
@@ -205,6 +221,8 @@ ul li:hover ul {
 
 
 
+
+
 /*edit jade*/
 .edit{
 	display:inline-block;
@@ -215,6 +233,17 @@ ul li:hover ul {
 }
 
 
+/*discover jade*/
+.upvote {
+	margin-top:-55px;
+}
+.downvote {
+	margin-top:-60px;
+}
+.rating{
+	margin-top:-60px;
+	margin-left:8px;
+}
 
 
 

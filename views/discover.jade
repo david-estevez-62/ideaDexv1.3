@@ -10,3 +10,23 @@ block content
 			tr
 				td
 				td
+				td
+				td
+				for post in posts	
+					tr
+						td
+						td(data-postid2=post.username)
+							img.upvote(src='/img/thumbsup.png', data-postid=post._id)
+						td(rowspan:3).ideaBody
+							h3= post.contents
+							h6= post.username
+							h6= post.date
+						td(rowspan:3)
+					tr
+						td
+						td
+							h3.rating= post.rating
+					tr
+						td
+						td
+							img.downvote(src='/img/thumbsdown.png', data-postid=post._id)

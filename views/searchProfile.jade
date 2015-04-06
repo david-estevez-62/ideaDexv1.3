@@ -4,19 +4,29 @@ block content
 	h3 You are surfing #{user.username}s profile
 	h5(display: hidden) #{user.username}
 	if (isFollowing === -1)
-		form(method="post", action="/follow")
-			input(type="hidden", name="name", value="value") 
-			input#submit2(type="submit", value="Follow")
+		btn.btn.btn-default#submit2 Follow
 	div
 		table.ideaTable
-				tr
-					td
-					td
-					td
-		if (publicPosts.length > 0)
-			for post in publicPosts
-				tr
-					td
-					td.ideaBody
-						h3= post.contents
-					td.delete(href="#") Remove
+			tr
+				td
+				td
+				td
+				td
+			if (publicPosts.length > 0)
+				for post in publicPosts	
+					tr
+						td
+						td
+							//- img.moveup(src='/img/thumbsup.png')
+						td(rowspan:3).ideaBody
+							h3= post.contents
+							h6= post.date
+						td(rowspan:3)
+					tr
+						td
+						td
+							h3= post.ratings
+					tr
+						td
+						td
+							//- img.moveup(src='/img/thumbsdown.png')

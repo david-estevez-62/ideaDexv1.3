@@ -15,25 +15,31 @@ $(document).ready(function(){
 		e.preventDefault();
 
 		var postData = $(".postinput").val();
+		var date = Date();
+
 		// var postData2 = $('#upload').val();
 		console.log(postData)
 
 		$('.postinput').removeClass('noborder');
 
-		console.log($('#addPost'));
+	
 
 
-		$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked')} , function(data){
+
+		$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked'), date:date} , function(data){
 			// console.log(data);
 
-			$('#ideaPosted').text(data.posts);
+			console.log('test', data);
+
+			$(".ideaTable").prepend('<tr data-postid="'+data._id+'"><td></td><td><img src="/img/thumbsup.png"></td><td class="ideaBody" rowspan="3"><h3>' + postData + '</h3></td><td rowspan="3"><a class="delete" data-postid="'+data._id+'">Remove</a></td></tr><tr><td></td><td></td></tr><tr><td></td><td><img src="/img/thumbsdown.png"></td></tr>');
 
 		});
 
 		$('.postinput').val('');
 
 
-		$(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');
+		// $(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');
+		
 	});
 
 
@@ -42,11 +48,8 @@ $(document).ready(function(){
 
 
 
-	$("#submit2").on('click', function(e){
+	$("#submit2").on('click', function(){
 
-
-
-		e.preventDefault();
 
 		var usersProf = $('h5').text()
 
@@ -60,8 +63,7 @@ $(document).ready(function(){
 
 		$.post('/follow', {usersProf:usersProf} , function(data){
 			// console.log(data);
-
-			$('h5').text(data.follow)
+			$('#submit2').remove();
 
 		});
 
@@ -71,12 +73,51 @@ $(document).ready(function(){
 		
 	});
 
+	// $(document).on("click", '.delete', function(){
+	$('.delete').on('click', function(){
+
+
+		var thisPost = $(this).attr('data-postid');
+
+		// var table = $('tr').attr('data-postid');
+		console.log($(this));
+
+
+		$.post('/ideaRemoved', {thisPost:thisPost}, function(data){
+			// console.log(remove);
+			// console.log(data);
+			// var remove = $(this).parent('tr');
+			// console.log(remove);
+
+			$(this).remove();
+			
+	
+		})
+
+
+	});
+
+
+	$('.upvote').on('click', function(){
+		var thisPost = $(this).attr('data-postid');
+
+		var userPosted = $(this).parent().attr('data-postid2');
+		console.log(userPosted);
+
+		console.log(thisPost);
+
+		$.post('/upvote', {thisPost:thisPost, userPosted:userPosted}, function(data){
+			console.log(data);
+		})
+	})
+
 	// Go to users profile that was clicked(Routes will depend whether friends or not)
 	// $('#findProfile').on('click', function () {
 		
 		
 
 	// })
+
 
 
 

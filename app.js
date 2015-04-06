@@ -81,18 +81,78 @@ app.use(passportConfig.isLoggedIn);
 // Passing in ideas in res.render allows use to have access to ideas in jade
 app.get('/:username/home', function (req, res) {
   var posts = req.user.posts.reverse();
+
   res.render('home', {
     user: req.user,
     posts: posts
   });
 });
 app.post('/ideaPosted', usersController.AddPost);
-// app.post('/ideaRemoved', usersController.RemovePost)
+
+
+app.post('/ideaRemoved', usersController.RemovePost)
 
 
 
 
+app.post('/upvote', function(req, res){
+  var username =req.body.userPosted;
+  var postid = req.body.thisPost;
 
+  User.findOne({username:username}, function(err, user){
+    if (err) return handleErr(err);
+
+    for (var i = 0; i < user.posts.length; i++) {
+      
+        if(user.posts[i]._id=== postid){
+
+          user.posts[i].rating +=1
+
+          // user.save();
+        }
+      };
+
+
+      for (var i = 0; i < user.publicPosts.length; i++) {
+      
+        if(user.publicPosts[i]._id=== postid){
+  
+          user.publicPosts[i].rating +=1
+
+          // user.save();
+
+          
+        }
+      };
+      user.save(function(err, user){
+        if(err) return handleErr(err);
+        for (var i = 0; i < user.followers.length; i++) {
+          User.findOne({username:user.followers[i]}, function(err, follower){
+            console.log(follower)
+
+            for (var j = 0; j < follower.discover.length; j++) {
+      
+              if(follower.discover[j]._id=== postid){
+
+                follower.discover[j].rating +=1
+
+                // user.save();
+                follower.save();
+              }
+            };
+
+            // follower.save();
+          })
+
+        };
+
+        res.send('success')
+        // res.redirect('/'+id+'/home');
+      });
+
+
+  })
+})
 
 // app.get('/users/:userid', readController.getByUser);
 // // If already following dont have follow button other have follow btn
@@ -207,14 +267,42 @@ app.post('/follow', usersController.FollowUser);
 
 
 app.get('/:username/discover', function (req, res) {
-  res.render('discover', {user: req.user})
+  var posts = req.user.discover.reverse();
+
+    res.render('discover', {
+      user: req.user,
+      posts: posts
+    })
 });
 
 app.get('/:username/favorites', function (req, res) {
-  res.render('favorites', {user: req.user})
+
+  User.find({username: req.user.username}, function (err, data) {
+    if (err) {
+      res.send(err);
+    }
+
+      res.render('favorites', {
+        user: req.user,
+        favorites: data[0].favorites
+      })
+  });
+
 });
 app.get('/:username/notifications', function (req, res) {
-  res.render('notifications', {user: req.user})
+  
+  User.find({username: req.user.username}, function (err, data) {
+    if (err) {
+      res.send(err);
+    }
+
+      res.render('notifications', {
+        user: req.user,
+        // notifications will include followers and favorited posts
+        notifications: data[0].notifications
+      })
+  });
+
 });
 app.get('/changeUsername', function (req, res) {
   res.render('changeUsername');

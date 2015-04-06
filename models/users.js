@@ -20,7 +20,6 @@ var userSchema = mongoose.Schema({
     type: String,
     required: true
   },
-
   posts: [
 
       {
@@ -31,11 +30,9 @@ var userSchema = mongoose.Schema({
             'default': shortid.generate
         },
         username: String,
-        date: {
-          type: Date,
-          default: new Date()
-        },
+        date: String,
         privacy: Boolean,
+        rating: 0,
         category: String
       }
 
@@ -44,6 +41,8 @@ var userSchema = mongoose.Schema({
   followers: [String],
   following: [String],
   discover: [],
+  favorites: [],
+  notifications: [],
   imageUrl: String
 });
 

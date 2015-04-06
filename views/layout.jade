@@ -17,25 +17,25 @@ html(lang='en')
 			li
 				button
 					//- a.loginbtn2(href="/home/mongoid") Home
-					a.loginbtn2(href="/"+user.username+"/home") Home
+					a.navbtn1(href="/"+user.username+"/home") Home
 			li
 				button
-					a.loginbtn2(href="/"+user.username+"/discover") Discover
+					a.navbtn1(href="/"+user.username+"/discover") Discover
 			li
 				button
-					a.loginbtn2(href="/"+user.username+"/favorites") Favorites
+					a.navbtn1(href="/"+user.username+"/favorites") Favorites
 			li
 				button Settings
 				ul
 					li
 						button
-							a.loginbtn2(href="/"+user.username+"/notifications") Notifications
+							a.navbtn2(href="/"+user.username+"/notifications") Notifications
 					li
 						button
-							a.loginbtn2(href="/"+user.username+"/edit") Edit
+							a.navbtn1(href="/"+user.username+"/edit") Edit
 					li
 						button
-							a.loginbtn2(href="/") Logout
+							a.navbtn1(href="/") Logout
 						//- <div class="onoffswitch">
 						//- 	<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
 						//- 	<label class="onoffswitch-label" for="myonoffswitch">
@@ -51,5 +51,4 @@ html(lang='en')
 		script(src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-resource.js")
 		script(src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.js")
 		script(src="/client.js")
-		script(src='/user-settings.js')
 		
