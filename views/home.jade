@@ -14,6 +14,7 @@ block content
 				label(class="onoffswitch-label" for="myonoffswitch")
 					span(class="onoffswitch-inner")
 					span(class="onoffswitch-switch")
+	
 			//- form(action="/ideaPosted", method="post")
 			//- 	input(type='file', name='pic', accept="image/*", id="upload")
 			//- 	input(type='submit')
@@ -32,6 +33,7 @@ block content
 						td(rowspan:3).ideaBody
 							h3= post.contents
 							h6= post.date
+							h6= post.username
 						td(rowspan:3)
 							a.delete(href="#", data-postid=post._id) Remove
 					tr
@@ -40,9 +42,13 @@ block content
 							h3.rating= post.rating
 					tr
 						td
-						td
+						td(data-postid2=post.username)
 							img.downvote(src='/img/thumbsdown.png', data-postid=post._id)
 
+
+
+	//- form
+	//- 	input(type='file')
 
 	//- form(action="demo_form.asp")
 	//- 	input(type="file" name="pic" accept="image/*")

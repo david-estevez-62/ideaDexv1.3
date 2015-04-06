@@ -109,7 +109,22 @@ $(document).ready(function(){
 		$.post('/upvote', {thisPost:thisPost, userPosted:userPosted}, function(data){
 			console.log(data);
 		})
-	})
+	});
+
+	$('.downvote').on('click', function(){
+		var thisPost = $(this).attr('data-postid');
+
+		var userPosted = $(this).parent().attr('data-postid2');
+		console.log(userPosted);
+
+		console.log(thisPost);
+
+		$.post('/downvote', {thisPost:thisPost, userPosted:userPosted}, function(data){
+			console.log(data);
+		})
+	});
+
+
 
 	// Go to users profile that was clicked(Routes will depend whether friends or not)
 	// $('#findProfile').on('click', function () {
