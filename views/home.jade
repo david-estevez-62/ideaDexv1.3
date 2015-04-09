@@ -37,7 +37,8 @@ block content
 						td(rowspan:3)
 							a.delete(href="#", data-postid=post._id) Remove
 					tr
-						td
+						td(data-postid2=post.username)
+							img.favorite(src='/img/favoriteIcon.png', data-postid=post._id, data-cont=post.contents, width='35px', height='35px')
 						td
 							h3.rating= post.rating
 					tr

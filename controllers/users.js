@@ -29,22 +29,41 @@ var usersController = {
 // //   // },
 
 
-	EditSettings: function (req, res) {
+	ChngPassword: function (req, res) {
 		var data = req.body;
 		var id = req.user.username;
 		
 		User.findOne(id, function(err, user) {
 			if (err) return handleErr(err);
-			user.username = data.username || user.username;
 			user.password = data.password || user.password;
-			user.imgUrl = data.imageUrl || user.imageUrl;
 			user.incomplete = false;
 			user.save(function(err, user) {
 				if(err) return handleErr(err);
-				res.redirect('/'+id+'/edit')
+				res.send(user);
+				// res.redirect('/'+id+'/edit')
 			});
 			console.log('this is req.body in guestUpdateInfo: ', req.user);
 		});
+	},
+
+	ChngUsername: function (req, res) {
+		var data = req.body;
+		var id = req.user.username;
+
+		console.log(data.username);
+
+		console.log(id);
+
+		User.findOne(id, function(err, user) {
+			if (err) return handleErr(err);
+			console.log(user)
+			user.username = data.username || user.username;
+			user.save(function(err, user) {
+				if(err) return handleErr(err);
+				res.send(user);
+				// res.redirect('/'+id+'/edit')
+			});
+		})
 	},
 
 	AddPost: function (req, res) {
@@ -68,7 +87,8 @@ var usersController = {
 		      	privacy: data.privacy,
 		      	username: req.user.username,
 		      	date: data.date,
-		      	rating: Number(0)
+		      	rating: Number(0),
+		      	uwv: []
 		    }
 			
 		  
@@ -76,36 +96,33 @@ var usersController = {
 		   	user.posts.push(newPost);
 
 
-		   	if (newPost.privacy === 'false') {
-		   		user.publicPosts.push(newPost);
-
-		   		// console.log(user.followers)
-
-		   		// console.log(User.find({username:username}))
-		   		// create a for loop, for all followers in users list push to their discover array
-		   		// User.find({followers:username}, function(err, users){
-		   		// 	console.log(users);
-		   		// 	users.discover.push(newPost);
-		   		// })
-
-		   	}
+			   	if (newPost.privacy === 'false') {
+			   		user.publicPosts.push(newPost);
+			   	}
 
 			user.save(function(err, user){
 				if(err) return handleErr(err);
-				for (var i = 0; i < user.followers.length; i++) {
-					User.findOne({username:user.followers[i]}, function(err, follower){
-						// console.log(follower)
-						follower.discover.push(newPost)
 
-						follower.save();
-					})
+				if(newPost.privacy === 'false'){
 
-				};
+					for (var i = 0; i < user.followers.length; i++) {
+						User.findOne({username:user.followers[i]}, function(err, follower){
+							// console.log(follower)
+							follower.discover.push(newPost)
 
-				res.send(newPost);
+							follower.save();
+						})
+
+					};
+
+				}
+				
+
+				
 				// res.redirect('/'+id+'/home');
 			});
 
+			res.send(newPost);
 		});
 
 
@@ -148,7 +165,39 @@ var usersController = {
 	// 	});
 
 	// }
+	Favorite: function(req, res){
+		  var id = req.user._id;
+		  var username =req.body.userPosted;
+		  var postid = req.body.thisPost;
+		  var contents = req.body.postContent;
 
+		 favorite = {
+		 	contents: contents,
+		 	_id: postid,
+		 	username: username
+		 }
+
+
+		 User.findById(id, function(err, user){
+		 	if (err) return handleErr(err);
+		 	console.log(user.username);
+		 	console.log(favorite);
+
+		 	user.favorites.push(favorite)
+
+		 	// for(var i = 0; i < user.favorites.length; i++){
+		 	// 	if(user.favorites[i]._id!==postid){
+		 	// 		user.favorites.push(favorite)
+
+		 	// 	}
+
+
+		 	// }
+		 	user.save();
+		 })
+
+
+	},
 
 
 	RemovePost: function(req, res){

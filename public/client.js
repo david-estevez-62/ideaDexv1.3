@@ -125,6 +125,20 @@ $(document).ready(function(){
 	});
 
 
+	$('.favorite').on('click', function(){
+		var thisPost = $(this).attr('data-postid');
+		var postContent = $(this).attr('data-cont');
+
+		var userPosted = $(this).parent().attr('data-postid2');
+
+
+		$.post('/favorite', {thisPost:thisPost, userPosted:userPosted, postContent:postContent}, function(data){
+			console.log(data);
+		})
+
+	})
+
+
 
 	// Go to users profile that was clicked(Routes will depend whether friends or not)
 	// $('#findProfile').on('click', function () {

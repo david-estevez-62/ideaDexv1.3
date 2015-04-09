@@ -12,21 +12,22 @@ block content
 				td
 				td
 				td
-				for post in posts	
+				for publicPost in posts	
 					tr
 						td
-						td(data-postid2=post.username)
-							img.upvote(src='/img/thumbsup.png', data-postid=post._id)
+						td(data-postid2=publicPost.username)
+							img.upvote(src='/img/thumbsup.png', data-postid=publicPost._id)
 						td(rowspan:3).ideaBody
-							h3= post.contents
-							h6= post.username
-							h6= post.date
+							h3= publicPost.contents
+							h6= publicPost.username
+							h6= publicPost.date
 						td(rowspan:3)
 					tr
+						td(data-postid2=publicPost.username)
+							img.favorite(src='/img/favoriteIcon.png', data-postid=publicPost._id, data-cont=publicPost.contents, width='35px', height='35px')
 						td
-						td
-							h3.rating= post.rating
+							h3.rating= publicPost.rating
 					tr
 						td
-						td(data-postid2=post.username)
-							img.downvote(src='/img/thumbsdown.png', data-postid=post._id)
+						td(data-postid2=publicPost.username)
+							img.downvote(src='/img/thumbsdown.png', data-postid=publicPost._id)

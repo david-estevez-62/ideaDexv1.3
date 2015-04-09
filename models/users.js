@@ -33,7 +33,8 @@ var userSchema = mongoose.Schema({
         date: String,
         privacy: Boolean,
         rating: 0,
-        category: String
+        category: String,
+        uwv: []
       }
 
     ],

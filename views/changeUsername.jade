@@ -1,6 +1,8 @@
-//- block content
-//- 	form(action="/", method="post")
-//- 		input(type="text", name="username", placeholder="New Username") :New Username
-//- 		input(type="text", name="username", placeholder="Confirm Username") :Confirm Username
-//- 		input(type="text", name="password", placeholder="Password"):Password
-//- 		input(type="submit") Submit
+extends layout
+
+block content
+	div.edit
+		form#editSettings(action="/changeUsername", method="post")
+			input#newUsername.form1(type="text", name="username", placeholder="username")
+			input#newUsername.form1(type='text', name="conf-username", placeholder="confirm username")
+			input(type="submit", value="Save")

@@ -14,9 +14,13 @@ var User = require('./models/users.js');
 var indexController = require('./controllers/index.js');
 var adminController = require('./controllers/admin');
 var usersController = require('./controllers/users');
+var postController = require('./controllers/post');
 
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/express-passport-local');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
 app.set('view engine', 'jade');
@@ -24,8 +28,10 @@ app.set('views', __dirname + '/views/');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 require('./models/seeds/acctsSeed.js');
-app.use(session({
-  secret: 'keyboard cat'
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(cookieParser());
@@ -68,10 +74,6 @@ app.use(passportConfig.isLoggedIn);
 
 
 
-
-
-
-
 // app.get('/:username/home', function(req,res){
 //  res.render('home', {user: req.user})
 // })
@@ -93,130 +95,10 @@ app.post('/ideaPosted', usersController.AddPost);
 app.post('/ideaRemoved', usersController.RemovePost)
 
 
+app.post('/upvote', postController.Upvote);
+app.post('/downvote', postController.Downvote);
 
-app.post('/upvote', function(req, res){
-  var currentUser = req.user._id;
-  var username =req.body.userPosted;
-  var postid = req.body.thisPost;
-
-  console.log(currentUser);
-
-  User.findOne({username:username}, function(err, user){
-    if (err) return handleErr(err);
-
-    for (var i = 0; i < user.posts.length; i++) {
-      
-        if(user.posts[i]._id=== postid){
-
-          user.posts[i].rating +=1
-
-          // user.save();
-        }
-      };
-
-
-      for (var i = 0; i < user.publicPosts.length; i++) {
-      
-        if(user.publicPosts[i]._id=== postid){
-  
-          user.publicPosts[i].rating +=1
-
-          // user.save();
-
-          
-        }
-      };
-      user.save(function(err, user){
-        if(err) return handleErr(err);
-        for (var i = 0; i < user.followers.length; i++) {
-          User.findOne({username:user.followers[i]}, function(err, follower){
-            console.log(follower)
-
-            for (var j = 0; j < follower.discover.length; j++) {
-      
-              if(follower.discover[j]._id=== postid){
-
-                follower.discover[j].rating +=1
-
-                // user.save();
-                follower.save();
-              }
-            };
-
-            // follower.save();
-          })
-
-        };
-
-        res.send('success')
-        // res.redirect('/'+id+'/home');
-      });
-
-
-  })
-})
-
-app.post('/downvote', function(req, res){
-  var currentUser = req.user._id;
-  var username =req.body.userPosted;
-  var postid = req.body.thisPost;
-
-  console.log(currentUser);
-
-  User.findOne({username:username}, function(err, user){
-    if (err) return handleErr(err);
-
-    for (var i = 0; i < user.posts.length; i++) {
-      
-        if(user.posts[i]._id=== postid){
-
-          user.posts[i].rating -=1
-
-          // user.save();
-        }
-      };
-
-
-      for (var i = 0; i < user.publicPosts.length; i++) {
-      
-        if(user.publicPosts[i]._id=== postid){
-  
-          user.publicPosts[i].rating -=1
-
-          // user.save();
-
-          
-        }
-      };
-      user.save(function(err, user){
-        if(err) return handleErr(err);
-        for (var i = 0; i < user.followers.length; i++) {
-          User.findOne({username:user.followers[i]}, function(err, follower){
-            console.log(follower)
-
-            for (var j = 0; j < follower.discover.length; j++) {
-      
-              if(follower.discover[j]._id=== postid){
-
-                follower.discover[j].rating -=1
-
-                // user.save();
-                follower.save();
-              }
-            };
-
-            // follower.save();
-          })
-
-        };
-
-        res.send('success')
-        // res.redirect('/'+id+'/home');
-      });
-
-
-  })
-})
+app.post('/favorite', usersController.Favorite);
 
 // app.get('/users/:userid', readController.getByUser);
 // // If already following dont have follow button other have follow btn
@@ -233,7 +115,6 @@ app.post('/downvote', function(req, res){
 app.get('/:username/edit', function (req, res) {
   res.render('edit', {user: req.user});
 });
-app.post('/editSettings', usersController.EditSettings);
 //res.redirect('/guest-portal');
 
 
@@ -283,34 +164,6 @@ app.get('/user/:me/:username', function (req, res) {
 app.post('/follow', usersController.FollowUser);
 
 
-
-
-//     // var following = user.following.indexOf(req.params.username)
-//     // console.log(following)
-//     // if (following === -1) {
-
-//     // }
-    
-
-//     // console.log(isFollowing);
-//     // if (isFollowing === -1) {
-//     //   req.params.ideas.publicPost
-//     //   User.find({username: req.params.username}, function(err, user) {
-//     //     var publicPosts = 
-//     //   })
-//     // } else {
-
-//     // }
-
-
-
-
-
-
-
-
-
-
   // User.find({following: req.params.username}, function (err, user) {
   //     if (err) res.send(err);
 
@@ -324,10 +177,6 @@ app.post('/follow', usersController.FollowUser);
 
   //     console.log(following);
   //     res.render('searchProfile', {user: req.body});
-
-
-
-
 
 
 app.get('/:username/discover', function (req, res) {
@@ -368,12 +217,21 @@ app.get('/:username/notifications', function (req, res) {
   });
 
 });
-app.get('/changeUsername', function (req, res) {
-  res.render('changeUsername');
+app.get('/:username/changeUsername', function (req, res) {
+  res.render('changeUsername', {user: req.user});
 });
-app.get('/changePassword', function (req, res) {
-  res.render('changePassword');
+app.post('/changeUsername', usersController.ChngUsername);
+
+
+
+
+app.get('/:username/changePassword', function (req, res) {
+  res.render('changePassword', {user: req.user});
 });
+app.post('/changePassword', usersController.ChngPassword);
+
+
+
 var server = app.listen(process.env.PORT || 6591, function () {
   console.log('Express server listening on port ' + server.address().port);
 });
