@@ -2,10 +2,10 @@ extends layout
 
 block content
 	div.edit
-		p Change password?
-			a(href="/"+user.username+"/changePassword") Reset Here
 		p Change username?
 			a(href="/"+user.username+"/changeUsername") Reset Here
+		p Change password?
+			a(href="/"+user.username+"/changePassword") Reset Here
 		p Add gravitar
 			form
 				input(type="file")

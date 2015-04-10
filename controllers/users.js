@@ -31,16 +31,17 @@ var usersController = {
 
 	ChngPassword: function (req, res) {
 		var data = req.body;
-		var id = req.user.username;
+		var id = req.user._id;
+		var username = req.user.username;
 		
-		User.findOne(id, function(err, user) {
+		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
 			user.password = data.password || user.password;
 			user.incomplete = false;
 			user.save(function(err, user) {
 				if(err) return handleErr(err);
 				res.send(user);
-				// res.redirect('/'+id+'/edit')
+				// res.redirect('/'+username+'/edit');
 			});
 			console.log('this is req.body in guestUpdateInfo: ', req.user);
 		});
@@ -48,20 +49,21 @@ var usersController = {
 
 	ChngUsername: function (req, res) {
 		var data = req.body;
-		var id = req.user.username;
+		var id = req.user._id;
+		var username = req.user.username;
 
 		console.log(data.username);
 
 		console.log(id);
 
-		User.findOne(id, function(err, user) {
+		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
 			console.log(user)
 			user.username = data.username || user.username;
 			user.save(function(err, user) {
 				if(err) return handleErr(err);
 				res.send(user);
-				// res.redirect('/'+id+'/edit')
+				// res.redirect('/'+username+'/edit');
 			});
 		})
 	},
