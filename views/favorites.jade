@@ -1,2 +1,25 @@
 extends layout
 
+block content
+	div
+		table.ideaTable
+			tr
+				td
+				td
+				td
+				td
+				for favorite in favorites	
+					tr
+						td
+						td
+						td(rowspan:3).ideaBody
+							h3= favorite.contents
+							h6= favorite.username
+						td(rowspan:3)
+					tr
+						td
+						td
+					tr
+						td
+						td
+

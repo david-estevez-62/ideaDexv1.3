@@ -21,7 +21,7 @@ var userSchema = mongoose.Schema({
     required: true
   },
   posts: [
-
+  
       {
         contents: [],
         _id: {
@@ -38,7 +38,6 @@ var userSchema = mongoose.Schema({
       }
 
     ],
-  publicPosts: [],
   followers: [String],
   following: [String],
   discover: [],

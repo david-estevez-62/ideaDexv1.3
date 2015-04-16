@@ -1,6 +1,6 @@
 var User = require('../models/users.js');
 var _ = require('underscore');
-var shortid= require('shortid');
+var shortid = require('shortid');
 
 
 
@@ -43,7 +43,7 @@ var usersController = {
 				res.send(user);
 				// res.redirect('/'+username+'/edit');
 			});
-			console.log('this is req.body in guestUpdateInfo: ', req.user);
+			
 		});
 	},
 
@@ -52,9 +52,9 @@ var usersController = {
 		var id = req.user._id;
 		var username = req.user.username;
 
-		console.log(data.username);
+		// console.log(data.username);
 
-		console.log(id);
+		// console.log(id);
 
 		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
@@ -72,14 +72,10 @@ var usersController = {
 		var data = req.body;
 		var id = req.user._id;
 		var username = req.user.username;
-
 	
-		
-
 		// console.log('this is req.body in guestUpdateInfo: ', req.user);
 		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
-	
 
 		var uid = shortid.generate();
 
@@ -93,14 +89,10 @@ var usersController = {
 		      	uwv: []
 		    }
 			
-		  
-
 		   	user.posts.push(newPost);
-
-
-			   	if (newPost.privacy === 'false') {
-			   		user.publicPosts.push(newPost);
-			   	}
+			   	// if (newPost.privacy === 'false') {
+			   	// 	user.publicPosts.push(newPost);
+			   	// }
 
 			user.save(function(err, user){
 				if(err) return handleErr(err);
@@ -114,13 +106,8 @@ var usersController = {
 
 							follower.save();
 						})
-
 					};
-
 				}
-				
-
-				
 				// res.redirect('/'+id+'/home');
 			});
 
@@ -147,11 +134,13 @@ var usersController = {
 	    if (err) return handleErr(err);
 
 		user.followers.push(username);
-		user.notifications.push(username);
+		user.notifications.push(username, 'followed your account');
+
+
 			// console.log(data.usersProf);
 
 		    user.save();
-		    res.send("success");
+		    res.send(user.notifications);
 		    // res.redirect('/user/' + username + '/' + data.usersProf);
 
 		});
@@ -169,6 +158,7 @@ var usersController = {
 	// }
 	Favorite: function(req, res){
 		  var id = req.user._id;
+		  var thisUser = req.user.username
 		  var username =req.body.userPosted;
 		  var postid = req.body.thisPost;
 		  var contents = req.body.postContent;
@@ -179,14 +169,37 @@ var usersController = {
 		 	username: username
 		 }
 
+		 // console.log(contents)
+
+		 // console.log(typeof postid)
+		 // console.log(postid)
+		 User.findOne({username:username}, function(err, user){
+		 	if (err) return handleErr(err);
+
+		 	user.notifications.push(thisUser, 'favorited this post', favorite)
+		 	user.save();
+		 	res.send(user.notifications);
+		 })
+
 
 		 User.findById(id, function(err, user){
 		 	if (err) return handleErr(err);
-		 	console.log(user.username);
-		 	console.log(favorite);
+		 	// console.log(user.username);
+		 	// console.log(favorite);
 
-		 	user.favorites.push(favorite)
+		 	var favorites = user.favorites
 
+		 	var alrdyFavorited =_.filter(favorites, function(obj){
+	
+          		return obj._id === postid
+       		})
+		 	
+
+		 	if(alrdyFavorited.length === 1){
+		 		console.log('do nothing')
+		 	}else{
+		 		user.favorites.push(favorite)
+		 	}
 		 	// for(var i = 0; i < user.favorites.length; i++){
 		 	// 	if(user.favorites[i]._id!==postid){
 		 	// 		user.favorites.push(favorite)
@@ -196,10 +209,14 @@ var usersController = {
 
 		 	// }
 		 	user.save();
+		 	
 		 })
 
 
 	},
+	// Notifications: function(req, res){
+
+	// },
 
 
 	RemovePost: function(req, res){
@@ -216,19 +233,6 @@ var usersController = {
 					user.posts.splice(i, 1)
 
 					user.save();
-				}
-			};
-
-
-			for (var i = 0; i < user.publicPosts.length; i++) {
-			
-				if(user.publicPosts[i]._id=== postid){
-	
-					user.publicPosts.splice(i, 1)
-
-					user.save();
-
-					
 				}
 			};
 

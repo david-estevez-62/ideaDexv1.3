@@ -3,6 +3,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var _=require('underscore');
 var mongoose = require('mongoose');
 
 var session = require('express-session');
@@ -148,15 +149,27 @@ app.post('/:username/search', function (req, res) {
 app.get('/user/:me/:username', function (req, res) {
   var isFollowing = req.user.following.indexOf(req.params.username);
 
+
       User.find({username: req.params.username}, function (err, data) {
         if (err) {
           res.send(err);
         }
 
+          var allPosts= data[0].posts.reverse()
+        //   console.log(allPosts)
+        //   console.log(data[0].posts)
+
+        // console.log(allPosts)
+
+        var publicPosts=_.filter(allPosts, function(obj){
+          return obj.privacy === false
+        })
+        console.log(publicPosts)
+
         res.render('searchProfile', {
           user: req.params,
           isFollowing: isFollowing,
-          publicPosts: data[0].publicPosts
+          publicPosts: publicPosts
         });
 
     });
@@ -195,9 +208,11 @@ app.get('/:username/favorites', function (req, res) {
       res.send(err);
     }
 
+    var favorites = req.user.favorites;
+
       res.render('favorites', {
         user: req.user,
-        favorites: data[0].favorites
+        favorites: favorites
       })
   });
 

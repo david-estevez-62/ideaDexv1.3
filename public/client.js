@@ -2,10 +2,13 @@ $(document).ready(function(){
 
 
 	//remove focus and border on click of (post) input event
-	$(".postinput").on('click', function(){
+	$("#postinput").on('click', function(){
 		$(this).addClass('noborder');
 	});
 
+	function chooseFile(){
+		$("#fileInput").click();
+	}
 
 	// var uniqueId = 0;
 
@@ -14,15 +17,13 @@ $(document).ready(function(){
 
 		e.preventDefault();
 
-		var postData = $(".postinput").val();
+		var postData = $("#postinput").val();
 		var date = Date();
 
 		// var postData2 = $('#upload').val();
 		console.log(postData)
 
-		$('.postinput').removeClass('noborder');
-
-	
+		$('#postinput').removeClass('noborder');
 
 
 
@@ -35,7 +36,7 @@ $(document).ready(function(){
 
 		});
 
-		$('.postinput').val('');
+		$('#postinput').val('');
 
 
 		// $(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');
@@ -43,11 +44,13 @@ $(document).ready(function(){
 	});
 
 
-
-
-
-
-
+	// $(".uploadTake").hover(function(){
+	// 	// console.log("hi")
+	// 	console.log($(this).parent())
+		
+	// 	$('.uploadTake').before('<input type="file" accept="image/*" id="upload">')
+	// 	console.log($(this).closest('input'))
+	// })
 	$("#submit2").on('click', function(){
 
 
@@ -62,7 +65,7 @@ $(document).ready(function(){
 
 
 		$.post('/follow', {usersProf:usersProf} , function(data){
-			// console.log(data);
+			console.log(data);
 			$('#submit2').remove();
 
 		});
@@ -88,7 +91,7 @@ $(document).ready(function(){
 			// console.log(data);
 			// var remove = $(this).parent('tr');
 			// console.log(remove);
-
+			console.log(data);
 			$(this).remove();
 			
 	
@@ -127,13 +130,26 @@ $(document).ready(function(){
 
 	$('.favorite').on('click', function(){
 		var thisPost = $(this).attr('data-postid');
-		var postContent = $(this).attr('data-cont');
+		var postCont = $(this).attr('data-cont');
+
+
+
+		var post = postCont.split('');
+		post.shift();
+		post.shift();
+		post.pop();
+		post.pop();
+		var postContent = post.join('');
+
+				
+
 
 		var userPosted = $(this).parent().attr('data-postid2');
 
 
 		$.post('/favorite', {thisPost:thisPost, userPosted:userPosted, postContent:postContent}, function(data){
 			console.log(data);
+			// document.write("hi")
 		})
 
 	})
