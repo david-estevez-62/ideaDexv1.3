@@ -18,7 +18,7 @@ var usersController = require('./controllers/users');
 var postController = require('./controllers/post');
 
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/express-passport-local');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ideanote');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -246,7 +246,10 @@ app.get('/:username/changePassword', function (req, res) {
 app.post('/changePassword', usersController.ChngPassword);
 
 
-
+// Use heroku's port if it is specified.
+// Otherwise use our own local port.
+// var port = process.env.PORT || 6591;
+// var server = app.listen(port, function(){})
 var server = app.listen(process.env.PORT || 6591, function () {
   console.log('Express server listening on port ' + server.address().port);
 });

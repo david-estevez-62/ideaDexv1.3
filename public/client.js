@@ -6,9 +6,9 @@ $(document).ready(function(){
 		$(this).addClass('noborder');
 	});
 
-	function chooseFile(){
+	$("#upload").on('click', function(){
 		$("#fileInput").click();
-	}
+	});
 
 	// var uniqueId = 0;
 
@@ -149,7 +149,7 @@ $(document).ready(function(){
 
 		$.post('/favorite', {thisPost:thisPost, userPosted:userPosted, postContent:postContent}, function(data){
 			console.log(data);
-			// document.write("hi")
+			// document.write(data)
 		})
 
 	})

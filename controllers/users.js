@@ -1,6 +1,7 @@
 var User = require('../models/users.js');
 var _ = require('underscore');
 var shortid = require('shortid');
+var myid = 0;
 
 
 
@@ -72,6 +73,9 @@ var usersController = {
 		var data = req.body;
 		var id = req.user._id;
 		var username = req.user.username;
+
+		myid += 1;
+		console.log(myid);
 	
 		// console.log('this is req.body in guestUpdateInfo: ', req.user);
 		User.findById(id, function(err, user) {
@@ -176,7 +180,7 @@ var usersController = {
 		 User.findOne({username:username}, function(err, user){
 		 	if (err) return handleErr(err);
 
-		 	user.notifications.push(thisUser, 'favorited this post', favorite)
+		 	user.notifications.push(thisUser, favorite)
 		 	user.save();
 		 	res.send(user.notifications);
 		 })
