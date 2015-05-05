@@ -3,7 +3,7 @@ extends layout
 block content
 	div
 		form#addPost(action="/ideaPosted", method="post", placeholder='Add your ideas here...')
-				input#postinput.form-control(type="text", placeholder="Add your ideas here...")
+				input#postinput(type="text", placeholder="Add your ideas here...")
 				//- input#ideaPosted.postinput(type="text", placeholder='Add your ideas here...')
 				img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
 				input#submit1(type="submit", value="Post")
@@ -22,6 +22,7 @@ block content
 							h3= publicPost.contents
 							h6= publicPost.username
 							h6= publicPost.date
+							//- textarea.tagarea
 						td(rowspan:3)
 					tr
 						td(data-postid2=publicPost.username)

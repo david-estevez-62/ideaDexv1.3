@@ -5,14 +5,14 @@ html(lang='en')
 		link(rel="stylesheet", type="text/css", href="/main.css")
 		link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
 		title IdeaDex
-
 	body
 		div.header
 			a.homelogo(href="/"+user.username+"/home") IdeaDex
 		nav(role="navigation")
-			form.form-group(action="/"+user.username+"/search", method="post")
+			form#searchform.form-group(action="/"+user.username+"/search", method="post")
 				input#searchinput.searchinput(type="text", placeholder="search for user", name="search")
-				input(type="submit", value="Search")
+				//- input(type="submit", value="Search")
+		img#searchbtn(src="/img/magnifyGlass.png", width="37px")
 		ul.menuBar
 			li
 				button

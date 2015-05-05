@@ -112,13 +112,13 @@ var usersController = {
 						})
 					};
 				}
-				// res.redirect('/'+id+'/home');
+				res.redirect('/'+req.user.username+'/home');
 			});
 
-			res.send(newPost);
+			
 		});
 
-
+		
 	},
 	FollowUser: function(req,res){
 		var data = req.body;
@@ -138,7 +138,7 @@ var usersController = {
 	    if (err) return handleErr(err);
 
 		user.followers.push(username);
-		user.notifications.push(username, 'followed your account');
+		user.notifications.push(username + ' followed your account');
 
 
 			// console.log(data.usersProf);
@@ -168,6 +168,7 @@ var usersController = {
 		  var contents = req.body.postContent;
 
 		 favorite = {
+		 	thisUser:thisUser,
 		 	contents: contents,
 		 	_id: postid,
 		 	username: username
@@ -180,7 +181,7 @@ var usersController = {
 		 User.findOne({username:username}, function(err, user){
 		 	if (err) return handleErr(err);
 
-		 	user.notifications.push(thisUser, favorite)
+		 	user.notifications.push(thisUser + " favorites this idea: " + contents)
 		 	user.save();
 		 	res.send(user.notifications);
 		 })
@@ -213,13 +214,14 @@ var usersController = {
 
 		 	// }
 		 	user.save();
+
 		 	
 		 })
 
 
 	},
 	// Notifications: function(req, res){
-
+	// 	console.log('hi');
 	// },
 
 

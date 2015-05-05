@@ -6,7 +6,7 @@ block content
 		h1 Welcome, #{user.username}
 		div
 			form#addPost(action="/ideaPosted", method="post", placeholder='Add your ideas here...')
-				input#postinput.form-control(type="text", placeholder="Add your ideas here...")
+				input#postinput(type="text", placeholder="Add your ideas here...")
 				//- input#ideaPosted.postinput(type="text", placeholder='Add your ideas here...')
 				//- a(href="#", type='file', name='pic', accept="image/*", id="upload")
 				<div style="height:0px;overflow:hidden">
@@ -46,7 +46,6 @@ block content
 						td
 						td(data-postid2=post.username)
 							img.downvote(src='/img/thumbsdown.png', data-postid=post._id)
-
 
 
 	//- form

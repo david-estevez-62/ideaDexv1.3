@@ -1,6 +1,16 @@
 extends layout
 
 block content
-		if (notifications.length > 0)
-			for notification in notifications
-				p= notification
+		table.ideaTable
+			tr
+				td
+				td
+				td
+				td
+				for notification in notifications
+					tr
+						td
+						td
+						td
+							h3= notification
+						td

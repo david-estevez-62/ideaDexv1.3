@@ -10,6 +10,10 @@ $(document).ready(function(){
 		$("#fileInput").click();
 	});
 
+	$('#searchbtn').on('click', function(){
+		$("#searchform").submit()
+	})
+
 	// var uniqueId = 0;
 
 	// submit idea to your wall
@@ -23,20 +27,19 @@ $(document).ready(function(){
 		// var postData2 = $('#upload').val();
 		console.log(postData)
 
-		$('#postinput').removeClass('noborder');
-
-
+		$('#postinput').removeClass('noborder')
 
 		$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked'), date:date} , function(data){
 			// console.log(data);
 
-			console.log('test', data);
+			// console.log('test', data);
 
 			$(".ideaTable").prepend('<tr data-postid="'+data._id+'"><td></td><td><img src="/img/thumbsup.png"></td><td class="ideaBody" rowspan="3"><h3>' + postData + '</h3></td><td rowspan="3"><a class="delete" data-postid="'+data._id+'">Remove</a></td></tr><tr><td></td><td></td></tr><tr><td></td><td><img src="/img/thumbsdown.png"></td></tr>');
 
 		});
 
 		$('#postinput').val('');
+
 
 
 		// $(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');

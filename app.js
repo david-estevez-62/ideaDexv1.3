@@ -224,12 +224,18 @@ app.get('/:username/notifications', function (req, res) {
       res.send(err);
     }
 
+      var counter = data[0].notifications.length
+
+      var notifications = data[0].notifications.reverse();
+
       res.render('notifications', {
         user: req.user,
         // notifications will include followers and favorited posts
-        notifications: data[0].notifications
+        notifications:notifications
       })
   });
+
+  
 
 });
 app.get('/:username/changeUsername', function (req, res) {
