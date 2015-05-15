@@ -128,15 +128,16 @@ app.post('/:username/search', function (req, res) {
  
   // User.findOne({'username':username}, function(err, user){
   User.find({username: new RegExp(req.body.search, 'i')}, function (err, user) {
-    // if (err) return next(err);
+    
+    if (err) return handleErr(err);
+        
 
-        // // If user is not found...
-        // if (!user){
-        //   return next(null, false, req.flash('loginError', 'No user found.'));
-        // }
-        // console.log(user)
+        var matches =_.filter(user, function(obj){
+          return obj.username !== req.params.username
+        })
+        console.log(matches)
 
-      res.render('search', {userlist: user, user: req.user});
+      res.render('search', {userlist: matches, user: req.user});
     })
    
     // res.('/search')
