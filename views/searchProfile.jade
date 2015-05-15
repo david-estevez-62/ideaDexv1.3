@@ -13,19 +13,16 @@ block content
 				td
 				td
 				for post in publicPosts	
-					tr
+					tr.posts
+						td(data-postid2=post.username)
+							img.favorite(src='/img/favoriteIcon.png', data-postid=post._id, data-cont=post.contents)
 						td
-						td
-							//- img.moveup(src='/img/thumbsup.png')
-						td(rowspan:3).ideaBody
+							img(src="/img/votearrow.jpg" alt="" usemap='#'+post._id)
+							map(name=post._id id=post._id)
+								area(alt="" title="" shape="poly" coords="3,25,22,0,38,25" class="upvote" data-postid=post._id)
+								h3.rating= post.rating
+								area(alt="" title="" shape="poly" coords="40,63,21,90,4,63" class="downvote" data-postid=post._id)
+						td.ideaBody
 							h3= post.contents
 							h6= post.date
-						td(rowspan:3)
-					tr
 						td
-						td
-							h3= post.ratings
-					tr
-						td
-						td
-							//- img.moveup(src='/img/thumbsdown.png')

@@ -2,24 +2,23 @@ extends layout
 
 block content
 	div
-		table.ideaTable
+		br
+		br
+		br
+		br
+		table.Table1
 			tr
 				td
 				td
 				td
 				td
 				for favorite in favorites	
-					tr
+					tr.posts
 						td
 						td
-						td(rowspan:3).ideaBody
+						td.ideaBody
 							h3= favorite.contents
 							h6= favorite.username
-						td(rowspan:3)
-					tr
 						td
-						td
-					tr
-						td
-						td
+
 

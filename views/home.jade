@@ -28,7 +28,7 @@ block content
 					td
 					td
 				for post in posts		
-					tr
+					tr.posts
 						td(data-postid2=post.username)
 							img.favorite(src='/img/favoriteIcon.png', data-postid=post._id, data-cont=post.contents)
 						td(data-postid2=post.username)

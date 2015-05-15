@@ -7,7 +7,16 @@ block content
 				//- input#ideaPosted.postinput(type="text", placeholder='Add your ideas here...')
 				img.uploadTake(src="/img/uploadpicIcon.png", width="25px")
 				input#submit1(type="submit", value="Post")
-		table.ideaTable
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		br
+		table.Table1
 			tr
 				td
 				td
@@ -15,21 +24,16 @@ block content
 				td
 				for publicPost in posts	
 					tr
-						td
 						td(data-postid2=publicPost.username)
-							img.upvote(src='/img/thumbsup.png', data-postid=publicPost._id)
-						td(rowspan:3).ideaBody
+							img.favorite(src='/img/favoriteIcon.png', data-postid=publicPost._id, data-cont=publicPost.contents)
+						td(data-postid2=publicPost.username)
+							img(src="/img/votearrow.jpg" alt="" usemap='#'+publicPost._id)
+							map(name=publicPost._id id=publicPost._id)
+								area(alt="" title="" shape="poly" coords="3,25,22,0,38,25" class="upvote" data-postid=publicPost._id)
+								h3.rating= publicPost.rating
+								area(alt="" title="" shape="poly" coords="40,63,21,90,4,63" class="downvote" data-postid=publicPost._id)
+						td.ideaBody
 							h3= publicPost.contents
 							h6= publicPost.username
 							h6= publicPost.date
-							//- textarea.tagarea
-						td(rowspan:3)
-					tr
-						td(data-postid2=publicPost.username)
-							img.favorite(src='/img/favoriteIcon.png', data-postid=publicPost._id, data-cont=publicPost.contents, width='35px', height='35px')
 						td
-							h3.rating= publicPost.rating
-					tr
-						td
-						td(data-postid2=publicPost.username)
-							img.downvote(src='/img/thumbsdown.png', data-postid=publicPost._id)

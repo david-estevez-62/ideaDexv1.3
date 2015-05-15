@@ -208,7 +208,7 @@ app.get('/:username/favorites', function (req, res) {
       res.send(err);
     }
 
-    var favorites = req.user.favorites;
+    var favorites = req.user.favorites.reverse();
 
       res.render('favorites', {
         user: req.user,

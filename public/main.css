@@ -155,10 +155,6 @@ ul li:hover ul {
 	top:100px;
 	left:20%;*/
 	width:900px;
-
-
-  border-bottom: 1px solid #999999;
-  border-top:0;
 }
 .delete {
   border: 2px solid black;
@@ -168,6 +164,28 @@ ul li:hover ul {
 .ideaTable tr td {
   border-bottom: 1px solid #999999;;
 }
+
+
+/*discover jade - discover Page*/
+.Table1{
+  min-height: 300px;
+  height: auto;
+  margin-top:-40px;
+  margin-left: 285px;
+}
+.Table1 tr {
+  height:150px;
+}
+.Table1 tr td:nth-child(3) {
+  /*position: relative;
+  top:100px;
+  left:20%;*/
+  border-left: 4px solid #999999;
+  border-right: 4px solid #999999;
+  width:900px;
+}
+
+
 
 
 
@@ -291,6 +309,7 @@ ul li:hover ul {
 .downvote1{
 	margin-top: -1px;
 }
+
 
 
 
@@ -542,4 +561,4 @@ p {
 .tag-box li .input-tag:hover, .tag-box li .input-tag:focus {
   outline: none;
   border: none;
-}**/
+}*
