@@ -252,6 +252,27 @@ app.get('/:username/changePassword', function (req, res) {
 app.post('/changePassword', usersController.ChngPassword);
 
 
+
+app.post('/uploadProfilepic', function(req, res){
+
+    User.findOne({username: req.user.username}, function (err, data) {
+      if (err) return handleErr(err);
+
+      data.imageUrl = req.body.imageUrl || "/img/gravatar.jpg"
+      var par = req.body.imageUrl
+      console.log(par)
+      data.save(function(err, user) {
+        console.log('ji')
+        if(err) return handleErr(err);
+        res.send(user);
+        // res.redirect('/'+username+'/edit');
+      });
+      
+    });
+
+})
+
+
 // Use heroku's port if it is specified.
 // Otherwise use our own local port.
 // var port = process.env.PORT || 6591;

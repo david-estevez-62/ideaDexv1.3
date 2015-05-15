@@ -6,8 +6,8 @@ block content
 			a(href="/"+user.username+"/changeUsername") Reset Here
 		p Change password?
 			a(href="/"+user.username+"/changePassword") Reset Here
-		p Add gravitar
-			form
-				input(type="file")
+		p Upload or Add Image Destination
+			form(action="/uploadProfilepic", method="post")
+				input(type="text", name="imageUrl")
 				input(type="submit")
 		

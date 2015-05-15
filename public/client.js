@@ -34,7 +34,8 @@ $(document).ready(function(){
 
 			// console.log('test', data);
 
-			$(".ideaTable").prepend('<tr data-postid="'+data._id+'"><td></td><td><img src="/img/thumbsup.png"></td><td class="ideaBody" rowspan="3"><h3>' + postData + '</h3></td><td rowspan="3"><a class="delete" data-postid="'+data._id+'">Remove</a></td></tr><tr><td></td><td></td></tr><tr><td></td><td><img src="/img/thumbsdown.png"></td></tr>');
+			$(".ideaTable").prepend('<tr data-postid="'+data._id+'"><td data-postid2="'+data.username+'"><img src="/img/favoriteIcon.png" class="favorite" data-postid="'+data._id+'" data-cont="'+data.contents+'" height="35px" width="35px"></td><td data-postid2="'+data.username+'"><img src="/img/votearrow.jpg" alt="" useMap="#Map" /><map name="Map" id="Map"><area alt="" title="" shape="poly" coords="3,25,22,0,38,25" class="upvote" data-postid="'+data._id+'" /><h3 class="rating">'+0+'</h3><area alt="" title="" shape="poly" coords="40,63,21,90,4,63" class="downvote" data-postid="'+data._id+'" /></map><td class="ideaBody"><h3>'+postData+'</h3><h6>'+date+'</h6><h6>'+data.username+'</h6></td><td><a href="#" class="delete" data-postid="'+data._id+'">Remove</a></td>');
+				
 
 		});
 
@@ -107,7 +108,7 @@ $(document).ready(function(){
 	$('.upvote').on('click', function(){
 		var thisPost = $(this).attr('data-postid');
 
-		var userPosted = $(this).parent().attr('data-postid2');
+		var userPosted = $(this).parent().parent().attr('data-postid2');
 		console.log(userPosted);
 
 		console.log(thisPost);
@@ -120,7 +121,7 @@ $(document).ready(function(){
 	$('.downvote').on('click', function(){
 		var thisPost = $(this).attr('data-postid');
 
-		var userPosted = $(this).parent().attr('data-postid2');
+		var userPosted = $(this).parent().parent().attr('data-postid2');
 		console.log(userPosted);
 
 		console.log(thisPost);
