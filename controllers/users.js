@@ -1,7 +1,7 @@
 var User = require('../models/users.js');
 var _ = require('underscore');
 var shortid = require('shortid');
-var myid = 0;
+// var myid = 0;
 
 
 
@@ -74,21 +74,25 @@ var usersController = {
 		var id = req.user._id;
 		var username = req.user.username;
 
-		myid += 1;
-		console.log(myid);
+		var date= Date();
+
+		// myid += 1;
+		// console.log(myid);
 	
 		// console.log('this is req.body in guestUpdateInfo: ', req.user);
 		User.findById(id, function(err, user) {
 			if (err) return handleErr(err);
 
 		var uid = shortid.generate();
+		console.log('hi')
+		console.log(data.onoffswitch)
 
 		newPost = {
-				contents: [data.postData],
+				contents: [data.contents],
 		        _id: uid,
-		      	privacy: data.privacy,
+		      	privacy: data.onoffswitch,
 		      	username: req.user.username,
-		      	date: data.date,
+		      	date: date,
 		      	rating: Number(0),
 		      	uwv: []
 		    }
@@ -112,10 +116,9 @@ var usersController = {
 						})
 					};
 				}
-				res.redirect('/'+req.user.username+'/home');
-			});
-
-			
+				// console.log(user)
+				res.redirect('/'+req.user.username+'/home');		
+			});			
 		});
 
 		

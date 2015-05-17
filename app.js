@@ -229,11 +229,22 @@ app.get('/:username/notifications', function (req, res) {
 
       var notifications = data[0].notifications.reverse();
 
+
+      // data[0].notifications.remove({})
+      // User.update({"username":"req.user.username"}, {"$unset":{"notifications":{}}})
+      User.update({"username":"req.user.username"}, {"$unset":{"notifications":{}}})
+      // data[0].save()
+      console.log(data[0].notifications.length)
+      
+
+
       res.render('notifications', {
         user: req.user,
         // notifications will include followers and favorited posts
         notifications:notifications
       })
+
+      
   });
 
   

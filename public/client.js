@@ -17,35 +17,47 @@ $(document).ready(function(){
 	// var uniqueId = 0;
 
 	// submit idea to your wall
-	$("#submit1").on('click', function(e){
+	// 
+	
 
-		e.preventDefault();
 
-		var postData = $("#postinput").val();
-		var date = Date();
 
-		// var postData2 = $('#upload').val();
-		console.log(postData)
 
-		$('#postinput').removeClass('noborder')
+	// $("#submit1").on('click', function(){
 
-		$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked'), date:date} , function(data){
-			// console.log(data);
 
-			// console.log('test', data);
+	// 	var postData = $("#postinput").val();
+	// 	var date = Date();
 
-			$(".ideaTable").prepend('<tr data-postid="'+data._id+'"><td data-postid2="'+data.username+'"><img src="/img/favoriteIcon.png" class="favorite" data-postid="'+data._id+'" data-cont="'+data.contents+'" height="35px" width="35px"></td><td data-postid2="'+data.username+'"><img src="/img/votearrow.jpg" alt="" useMap="#Map" /><map name="Map" id="Map"><area alt="" title="" shape="poly" coords="3,25,22,0,38,25" class="upvote" data-postid="'+data._id+'" /><h3 class="rating">'+0+'</h3><area alt="" title="" shape="poly" coords="40,63,21,90,4,63" class="downvote" data-postid="'+data._id+'" /></map><td class="ideaBody"><h3>'+postData+'</h3><h6>'+date+'</h6><h6>'+data.username+'</h6></td><td><a href="#" class="delete" data-postid="'+data._id+'">Remove</a></td>');
+	// 	// var postData2 = $('#upload').val();
+	// 	// console.log(postData)
+
+	// 	$('#postinput').removeClass('noborder')
+
+	// 	$.post('/ideaPosted', {postData:postData, privacy: $('#myonoffswitch').is(':checked'), date:date} , function(data){
+	// 		console.log(data.posts);
+
+	// 		// console.log('test', data);
+
+	// 		$(".ideaTable").prepend('<tr data-postid="'+data._id+'"><td data-postid2="'+data.username+'"><img src="/img/favoriteIcon.png" class="favorite" data-postid="'+data._id+'" data-cont="'+data.contents+'" height="35px" width="35px"></td><td data-postid2="'+data.username+'"><img src="/img/votearrow.jpg" alt="" useMap="#Map" /><map name="Map" id="Map"><area alt="" title="" shape="poly" coords="3,25,22,0,38,25" class="upvote" data-postid="'+data._id+'" /><h3 class="rating">'+0+'</h3><area alt="" title="" shape="poly" coords="40,63,21,90,4,63" class="downvote" data-postid="'+data._id+'" /></map><td class="ideaBody"><h3>'+postData+'</h3><h6>'+date+'</h6><h6>'+data.username+'</h6></td><td><a href="#" class="delete" data-postid="'+data._id+'">Remove</a></td>');
 				
 
-		});
+	// 	});
 
-		$('#postinput').val('');
+	// 	$('#postinput').val('');
 
 
 
-		// $(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');
+	// 	// $(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');
 		
-	});
+	// });
+
+
+
+
+
+
+
 
 
 	// $(".uploadTake").hover(function(){

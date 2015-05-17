@@ -268,14 +268,14 @@ var postController = {
 		      //   };
 
 		      //   res.send('success')
-		      //   // res.redirect('/'+id+'/home');
+		        
 		      // });
 						}
 					}
 				}
 
 		  });
-
+		// res.redirect('/'+username+'/home');
 	}
 
 }

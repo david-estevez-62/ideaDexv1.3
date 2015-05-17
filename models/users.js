@@ -30,7 +30,7 @@ var userSchema = mongoose.Schema({
             'default': shortid.generate
         },
         username: String,
-        date: String,
+        date: {type:Date, default:Date()},
         privacy: Boolean,
         rating: 0,
         category: String,

@@ -59,22 +59,23 @@ ul li:hover ul {
 	opacity: 1;
 	visibility: visible;
 }
-.navbtn1{
+.navbtn{
 	color:black;
-	width:67px;
-	height:26px;
+  height:25px;
+  padding:3px;
+  border-radius: 0;
+  background: #E6E6E6;
 }
-.navbtn1:hover{
+.navbtn:hover{
+  background: #DDDDDD;
+}
+
+
+.navbtn:hover{
 	text-decoration: none;
 	color:black;
 }
-.navbtn2{
-	color:black;
-}
-.navbtn2:hover{
-	text-decoration: none;
-	color: black;
-}
+
 
 
 /*.wrapper{
