@@ -26,262 +26,263 @@ var usersController = {
 // //   },
 
 // //   // getNonPriv: function(req,res){
-// // // 
+// // //
 // //   // },
 
 
-	ChngPassword: function (req, res) {
-		var data = req.body;
-		var id = req.user._id;
-		var username = req.user.username;
-		
-		User.findById(id, function(err, user) {
-			if (err) return handleErr(err);
-			user.password = data.password || user.password;
-			user.incomplete = false;
-			user.save(function(err, user) {
-				if(err) return handleErr(err);
-				res.send(user);
-				// res.redirect('/'+username+'/edit');
-			});
-			
-		});
-	},
+  ChngPassword: function (req, res) {
+    var data = req.body;
+    var id = req.user._id;
+    var username = req.user.username;
 
-	ChngUsername: function (req, res) {
-		var data = req.body;
-		var id = req.user._id;
-		var username = req.user.username;
+    User.findById(id, function(err, user) {
+      if (err) return handleErr(err);
+      user.password = data.password || user.password;
+      user.incomplete = false;
+      user.save(function(err, user) {
+        if(err) return handleErr(err);
+        res.send(user);
+        // res.redirect('/'+username+'/edit');
+      });
 
-		// console.log(data.username);
+    });
+  },
 
-		// console.log(id);
+  ChngUsername: function (req, res) {
+    var data = req.body;
+    var id = req.user._id;
+    var username = req.user.username;
 
-		User.findById(id, function(err, user) {
-			if (err) return handleErr(err);
-			console.log(user)
-			user.username = data.username || user.username;
-			user.save(function(err, user) {
-				if(err) return handleErr(err);
-				res.send(user);
-				// res.redirect('/'+username+'/edit');
-			});
-		})
-	},
+    // console.log(data.username);
 
-	AddPost: function (req, res) {
-		var data = req.body;
-		var id = req.user._id;
-		var username = req.user.username;
+    // console.log(id);
 
-		var date= Date();
+    User.findById(id, function(err, user) {
+      if (err) return handleErr(err);
+      console.log(user);
+      user.username = data.username || user.username;
+      user.save(function(err, user) {
+        if(err) return handleErr(err);
+        res.send(user);
+        // res.redirect('/'+username+'/edit');
+      });
+    });
+  },
 
-		// myid += 1;
-		// console.log(myid);
-	
-		// console.log('this is req.body in guestUpdateInfo: ', req.user);
-		User.findById(id, function(err, user) {
-			if (err) return handleErr(err);
+  AddPost: function (req, res) {
+    var data = req.body;
+    var id = req.user._id;
+    var username = req.user.username;
+    var date = Date();
+    var onOff = false;
+    if (req.body.onoffswitch) {
+      onOff = true;
+    }
 
-		var uid = shortid.generate();
-		console.log('hi')
-		console.log(data.onoffswitch)
+    // myid += 1;
+    // console.log(myid);
 
-		newPost = {
-				contents: [data.contents],
-		        _id: uid,
-		      	privacy: data.onoffswitch,
-		      	username: req.user.username,
-		      	date: date,
-		      	rating: Number(0),
-		      	uwv: []
-		    }
-			
-		   	user.posts.push(newPost);
-			   	// if (newPost.privacy === 'false') {
-			   	// 	user.publicPosts.push(newPost);
-			   	// }
+    // console.log('this is req.body in guestUpdateInfo: ', req.user);
+    User.findById(id, function(err, user) {
+      if (err) return handleErr(err);
 
-			user.save(function(err, user){
-				if(err) return handleErr(err);
+      var uid = shortid.generate();
+      console.log('hi');
+      console.log(data.onoffswitch);
 
-				if(newPost.privacy === 'false'){
+      newPost = {
+        contents: [data.contents],
+        _id: uid,
+        privacy: onOff,
+        username: req.user.username,
+        date: date,
+        rating: Number(0),
+        uwv: []
+      };
 
-					for (var i = 0; i < user.followers.length; i++) {
-						User.findOne({username:user.followers[i]}, function(err, follower){
-							// console.log(follower)
-							follower.discover.push(newPost)
+      user.posts.push(newPost);
+      // if (newPost.privacy === 'false') {
+      //  user.publicPosts.push(newPost);
+      // }
 
-							follower.save();
-						})
-					};
-				}
-				// console.log(user)
-				res.redirect('/'+req.user.username+'/home');		
-			});			
-		});
-
-		
-	},
-	FollowUser: function(req,res){
-		var data = req.body;
-		var id = req.user._id;
-		var username = req.user.username;
-
-	    User.findById(id, function (err, user) {
-	    if (err) return handleErr(err);
-
-		user.following.push(data.usersProf);
-
-		    user.save();
-
-		});
-
-		User.findOne({username:data.usersProf}, function (err, user) {
-	    if (err) return handleErr(err);
-
-		user.followers.push(username);
-		user.notifications.push(username + ' followed your account');
+      user.save(function(err, user){
+        console.log(user)
+        if(err) return handleErr(err);
+        if(newPost.privacy === 'false'){
+          for (var i = 0; i < user.followers.length; i++) {
+            User.findOne({username:user.followers[i]}, function(err, follower){
+              // console.log(follower)
+              follower.discover.push(newPost)
+              follower.save();
+            });
+          }
+        }
+        // console.log(user)
+        res.redirect('/'+req.user.username+'/home');
+      });
+    });
 
 
-			// console.log(data.usersProf);
+  },
+  FollowUser: function(req,res){
+    var data = req.body;
+    var id = req.user._id;
+    var username = req.user.username;
 
-		    user.save();
-		    res.send(user.notifications);
-		    // res.redirect('/user/' + username + '/' + data.usersProf);
+      User.findById(id, function (err, user) {
+      if (err) return handleErr(err);
 
-		});
+    user.following.push(data.usersProf);
 
-	},
-	// ,
-	// PushPublic: function(req,res){
-	// 	var data = req.body;
-	// 	var username = req.user.username;
+        user.save();
 
-	// 	User.find({followers: username}, function(err, user) {
-	// 		user.followers.push()
-	// 	});
+    });
 
-	// }
-	Favorite: function(req, res){
-		  var id = req.user._id;
-		  var thisUser = req.user.username
-		  var username =req.body.userPosted;
-		  var postid = req.body.thisPost;
-		  var contents = req.body.postContent;
+    User.findOne({username:data.usersProf}, function (err, user) {
+      if (err) return handleErr(err);
 
-		 favorite = {
-		 	thisUser:thisUser,
-		 	contents: contents,
-		 	_id: postid,
-		 	username: username
-		 }
-
-		 // console.log(contents)
-
-		 // console.log(typeof postid)
-		 // console.log(postid)
-		 User.findOne({username:username}, function(err, user){
-		 	if (err) return handleErr(err);
-
-		 	user.notifications.push(thisUser + " favorites this idea: " + contents)
-		 	user.save();
-		 	res.send(user.notifications);
-		 })
+    user.followers.push(username);
+    user.notifications.push(username + ' followed your account');
 
 
-		 User.findById(id, function(err, user){
-		 	if (err) return handleErr(err);
-		 	// console.log(user.username);
-		 	// console.log(favorite);
+      // console.log(data.usersProf);
 
-		 	var favorites = user.favorites
+        user.save();
+        res.send(user.notifications);
+        // res.redirect('/user/' + username + '/' + data.usersProf);
 
-		 	var alrdyFavorited =_.filter(favorites, function(obj){
-	
-          		return obj._id === postid
-       		})
-		 	
+    });
 
-		 	if(alrdyFavorited.length === 1){
-		 		console.log('do nothing')
-		 	}else{
-		 		user.favorites.push(favorite)
-		 	}
-		 	// for(var i = 0; i < user.favorites.length; i++){
-		 	// 	if(user.favorites[i]._id!==postid){
-		 	// 		user.favorites.push(favorite)
+  },
+  // ,
+  // PushPublic: function(req,res){
+  //  var data = req.body;
+  //  var username = req.user.username;
 
-		 	// 	}
+  //  User.find({followers: username}, function(err, user) {
+  //    user.followers.push()
+  //  });
 
+  // }
+  Favorite: function(req, res){
+      var id = req.user._id;
+      var thisUser = req.user.username;
+      var username =req.body.userPosted;
+      var postid = req.body.thisPost;
+      var contents = req.body.postContent;
 
-		 	// }
-		 	user.save();
+     favorite = {
+      thisUser:thisUser,
+      contents: contents,
+      _id: postid,
+      username: username
+     };
 
-		 	
-		 })
+     // console.log(contents)
 
+     // console.log(typeof postid)
+     // console.log(postid)
+     User.findOne({username:username}, function(err, user){
+      if (err) return handleErr(err);
 
-	},
-	// Notifications: function(req, res){
-	// 	console.log('hi');
-	// },
-
-
-	RemovePost: function(req, res){
-		var postid = req.body.thisPost;
-		var id = req.user._id;
-
-		User.findById(id, function(err, user) {
-			if (err) return handleErr(err);
-	
-			for (var i = 0; i < user.posts.length; i++) {
-			
-				if(user.posts[i]._id=== postid){
-
-					user.posts.splice(i, 1)
-
-					user.save();
-				}
-			};
+      user.notifications.push(thisUser + " favorites this idea: " + contents);
+      user.save();
+      res.send(user.notifications);
+     });
 
 
-			user.save(function(err, user){
-				if(err) return handleErr(err);
-				for (var i = 0; i < user.followers.length; i++) {
-					User.findOne({username:user.followers[i]}, function(err, follower){
-						// console.log(follower)
+     User.findById(id, function(err, user){
+      if (err) return handleErr(err);
+      // console.log(user.username);
+      // console.log(favorite);
 
-						for (var j = 0; j < follower.discover.length; j++) {
-			
-							if(follower.discover[j]._id=== postid){
+      var favorites = user.favorites;
 
-								follower.discover.splice(j, 1)
+      var alrdyFavorited =_.filter(favorites, function(obj){
 
-								// user.save();
-								follower.save();
-							}
-						};
-
-						// follower.save();
-					})
-
-				};
-
-				res.send('success')
-				// res.redirect('/'+id+'/home');
-			});
-			
+              return obj._id === postid;
+          });
 
 
-			// User.findByIdAndRemove(postid, function(err, result){
-			// 	console.log(result)
+      if(alrdyFavorited.length === 1){
+        console.log('do nothing');
+      }else{
+        user.favorites.push(favorite);
+      }
+      // for(var i = 0; i < user.favorites.length; i++){
+      //  if(user.favorites[i]._id!==postid){
+      //    user.favorites.push(favorite)
 
-			// })
+      //  }
 
-		})
-	}
 
-}
+      // }
+      user.save();
+
+
+     });
+
+
+  },
+  // Notifications: function(req, res){
+  //  console.log('hi');
+  // },
+
+
+  RemovePost: function(req, res){
+    var postid = req.body.thisPost;
+    var id = req.user._id;
+
+    User.findById(id, function(err, user) {
+      if (err) return handleErr(err);
+
+      for (var i = 0; i < user.posts.length; i++) {
+
+        if(user.posts[i]._id=== postid){
+
+          user.posts.splice(i, 1);
+
+          user.save();
+        }
+      }
+
+
+      user.save(function(err, user){
+        if(err) return handleErr(err);
+        for (var i = 0; i < user.followers.length; i++) {
+          User.findOne({username:user.followers[i]}, function(err, follower){
+            // console.log(follower)
+
+            for (var j = 0; j < follower.discover.length; j++) {
+
+              if(follower.discover[j]._id=== postid){
+
+                follower.discover.splice(j, 1);
+
+                // user.save();
+                follower.save();
+              }
+            }
+
+            // follower.save();
+          });
+
+        }
+
+        res.send('success');
+        // res.redirect('/'+id+'/home');
+      });
+
+
+
+      // User.findByIdAndRemove(postid, function(err, result){
+      //  console.log(result)
+
+      // })
+
+    });
+  }
+
+};
 
 module.exports = usersController;

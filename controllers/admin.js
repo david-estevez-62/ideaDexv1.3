@@ -42,9 +42,9 @@ var adminController = {
     // after use. Useful for quick messages like "failed to login."
     // In this case, we pull any existing flash message id'd as "error"
     // and pass it to the view.
-    
+
     //username or password doesn't match whats in the database
-    res.redirect('/')
+    res.redirect('/');
   },
 
   // This is the post handler for any incoming login attempts.
@@ -56,7 +56,7 @@ var adminController = {
     // We are using the "local" strategy defined (and used) in the
     // config/passport.js file
     var authFunction = passport.authenticate('localSignIn', function(err, user, info){
-      
+
       ////////////////////////////
       // console.log(arguments) //
       ////////////////////////////
@@ -72,7 +72,7 @@ var adminController = {
         req.flash('error', 'Error logging in. Please try again.');
         return res.redirect('/login');
       }
-      
+
       // If we make it this far, the user has correctly authenticated with passport
       // so now, we'll just log the user in to the system.
       performLogin(req, res, next, user);
@@ -88,7 +88,7 @@ var adminController = {
   // If none are found, the user is successfully added to the DB, it is safe to
   // assume that they are ready to log in, so we do that as well.
   processSignup: function(req, res, next){
-    
+
     ///////////////////////////
     // console.log(req.body) //
     ///////////////////////////
