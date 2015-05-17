@@ -11,14 +11,14 @@ $(document).ready(function(){
 	});
 
 	$('#searchbtn').on('click', function(){
-		$("#searchform").submit()
-	})
+		$("#searchform").submit();
+	});
 
 	// var uniqueId = 0;
 
 	// submit idea to your wall
-	// 
-	
+	//
+
 
 
 
@@ -40,7 +40,7 @@ $(document).ready(function(){
 	// 		// console.log('test', data);
 
 	// 		$(".ideaTable").prepend('<tr data-postid="'+data._id+'"><td data-postid2="'+data.username+'"><img src="/img/favoriteIcon.png" class="favorite" data-postid="'+data._id+'" data-cont="'+data.contents+'" height="35px" width="35px"></td><td data-postid2="'+data.username+'"><img src="/img/votearrow.jpg" alt="" useMap="#Map" /><map name="Map" id="Map"><area alt="" title="" shape="poly" coords="3,25,22,0,38,25" class="upvote" data-postid="'+data._id+'" /><h3 class="rating">'+0+'</h3><area alt="" title="" shape="poly" coords="40,63,21,90,4,63" class="downvote" data-postid="'+data._id+'" /></map><td class="ideaBody"><h3>'+postData+'</h3><h6>'+date+'</h6><h6>'+data.username+'</h6></td><td><a href="#" class="delete" data-postid="'+data._id+'">Remove</a></td>');
-				
+
 
 	// 	});
 
@@ -49,7 +49,7 @@ $(document).ready(function(){
 
 
 	// 	// $(".ideaTable").prepend('<tr><td></td><td class="ideaBody"><h3>' + postData + '</h3></td><td><a class="delete">Remove</a></td></tr>');
-		
+
 	// });
 
 
@@ -63,7 +63,7 @@ $(document).ready(function(){
 	// $(".uploadTake").hover(function(){
 	// 	// console.log("hi")
 	// 	console.log($(this).parent())
-		
+
 	// 	$('.uploadTake').before('<input type="file" accept="image/*" id="upload">')
 	// 	console.log($(this).closest('input'))
 	// })
@@ -89,7 +89,7 @@ $(document).ready(function(){
 		// $('#submit').remove();
 
 
-		
+
 	});
 
 	// $(document).on("click", '.delete', function(){
@@ -109,8 +109,8 @@ $(document).ready(function(){
 			// console.log(remove);
 			console.log(data);
 			$(this).remove();
-			
-	
+
+
 		})
 
 
@@ -157,7 +157,7 @@ $(document).ready(function(){
 		post.pop();
 		var postContent = post.join('');
 
-				
+
 
 
 		var userPosted = $(this).parent().attr('data-postid2');
@@ -174,8 +174,8 @@ $(document).ready(function(){
 
 	// Go to users profile that was clicked(Routes will depend whether friends or not)
 	// $('#findProfile').on('click', function () {
-		
-		
+
+
 
 	// })
 
@@ -195,7 +195,7 @@ $(document).ready(function(){
 //     // When a success response is sent back
 //     originalIdeaElement.remove();
 //   });
-// };	
+// };
 
 
 
