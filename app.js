@@ -6,8 +6,8 @@ var mongoose = require('mongoose');
 var shortid = require('shortid');
 var path = require('path');
 var fs = require('fs');
-var multer = require('multer')
-var uploads = require('./routes/uploads');
+var multer = require('multer');
+
 
 
 
@@ -21,7 +21,7 @@ var indexController = require('./controllers/index.js');
 var adminController = require('./controllers/admin');
 var usersController = require('./controllers/users');
 var postController = require('./controllers/post');
-
+var uploadsController = require('./controllers/uploads.js');
 
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ideanote');
@@ -81,10 +81,9 @@ app.use(passport.initialize());
 
 app.use(passport.session());
 app.use(multer({
-    dest: “./uploads/”
+    dest: "./public/uploads/"
 }));
-app.use(“./uploads”, uploads);
-
+app.post("/uploads", uploadsController.uploads);
 
 
 
@@ -215,7 +214,7 @@ function postFormData(uploads, data, callback){
   }
   postFormData();
 
-    
+
 });
 app.post('/ideaRemoved', usersController.RemovePost);
 app.post('/upvote', postController.Upvote);
