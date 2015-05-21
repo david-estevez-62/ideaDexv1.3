@@ -1,6 +1,7 @@
 var User = require('../models/users.js');
 var _ = require('underscore');
 var shortid = require('shortid');
+var fs = require('fs')
 // var myid = 0;
 
 
@@ -69,61 +70,6 @@ var usersController = {
     });
   },
 
-  AddPost: function (req, res) {
-    var data = req.body;
-    var id = req.user._id;
-    var username = req.user.username;
-    var date = Date();
-    var onOff = false;
-    if (req.body.onoffswitch) {
-      onOff = true;
-    }
-
-    // myid += 1;
-    // console.log(myid);
-
-    // console.log('this is req.body in guestUpdateInfo: ', req.user);
-    User.findById(id, function(err, user) {
-      if (err) return handleErr(err);
-
-      var uid = shortid.generate();
-      console.log('hi');
-      console.log(data.onoffswitch);
-
-      newPost = {
-        contents: [data.contents],
-        _id: uid,
-        privacy: onOff,
-        username: req.user.username,
-        date: date,
-        rating: Number(0),
-        uwv: []
-      };
-
-      user.posts.push(newPost);
-      // if (newPost.privacy === 'false') {
-      //  user.publicPosts.push(newPost);
-      // }
-
-      user.save(function(err, user){
-        console.log(user)
-        if(err) return handleErr(err);
-        if(newPost.privacy === 'false'){
-          for (var i = 0; i < user.followers.length; i++) {
-            User.findOne({username:user.followers[i]}, function(err, follower){
-              // console.log(follower)
-              follower.discover.push(newPost)
-              follower.save();
-            });
-          }
-        }
-        // console.log(user)
-        res.redirect('/'+req.user.username+'/home');
-      });
-    });
-
-
-  },
   FollowUser: function(req,res){
     var data = req.body;
     var id = req.user._id;

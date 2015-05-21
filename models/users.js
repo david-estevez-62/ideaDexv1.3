@@ -43,7 +43,7 @@ var userSchema = mongoose.Schema({
   discover: [],
   favorites: [],
   notifications: [],
-  imageUrl: {type:String, default:'/img/gravatar.jpg'}
+  imageUrl: {type:String, default:'/uploads/gravatar.jpg'}
 });
 
 

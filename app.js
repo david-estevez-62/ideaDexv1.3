@@ -3,6 +3,13 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var _ = require('underscore');
 var mongoose = require('mongoose');
+var shortid = require('shortid');
+var path = require('path');
+var fs = require('fs');
+var multer = require('multer')
+var uploads = require('./routes/uploads');
+
+
 
 var session = require('express-session');
 var flash = require('connect-flash');
@@ -16,6 +23,7 @@ var usersController = require('./controllers/users');
 var postController = require('./controllers/post');
 
 
+
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ideanote');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -25,13 +33,46 @@ var app = express();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views/');
 app.use(express.static(__dirname + '/public'));
+
+// app.use(multer({
+//   dest: './uploads/',
+//   rename: function (fieldname, filename) {
+//     return filename.replace(/\W+/g, '-').toLowerCase();
+//   },
+//   onFileUploadStart: function (file) {
+//     process.stderr.write('Uploading file..........');
+//   },
+//   onFileUploadComplete: function (file) {
+//     process.stderr.write('done\n');
+//   },
+// }));
+
+
+
+// app.use(function(req, res){
+//   if(!req.files || !req.files.album_cover){
+//     // res.end("huh. Did you send a file?")
+//   } else{
+//     console.log(req.files);
+//     res.end("You have asked to set the album cover for "
+//         + req.body.albumid
+//         + " to '" + req.files.album_cover.name + "'\n");
+//   }
+// })
+// app.use(express.bodyParser({uploadDir:'./', keepExtensions: true}));
+// app.use(express.bodyParser({uploadDir:'/uploads'}));
+// app.use(express.bodyParser({uploadDir:'./uploads'}));
 app.use(bodyParser.urlencoded({extended: false}));
-require('./models/seeds/acctsSeed.js');
+
+
+
+// app.use(express.bodyParser({uploadDir:'./uploads'}));
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
 }));
+
 
 app.use(cookieParser());
 app.use(flash());
@@ -39,6 +80,13 @@ app.use(flash());
 app.use(passport.initialize());
 
 app.use(passport.session());
+app.use(multer({
+    dest: “./uploads/”
+}));
+app.use(“./uploads”, uploads);
+
+
+
 
 // Our get request for viewing the login page
 app.get('/login', adminController.login);
@@ -83,7 +131,92 @@ app.get('/:username/home', function (req, res) {
   });
 });
 
-app.post('/ideaPosted', usersController.AddPost);
+
+
+app.post('/ideaPosted', function (req, res) {
+
+    var data = req.body;
+    var id = req.user._id;
+    var username = req.user.username;
+    var date = Date();
+    var onOff = false;
+    if (req.body.onoffswitch) {
+      onOff = true;
+    }
+    // myid += 1;
+    // console.log(myid);
+
+    // console.log('this is req.body in guestUpdateInfo: ', req.user);
+    User.findById(id, function(err, user) {
+      if (err) return handleErr(err);
+
+      var uid = shortid.generate();
+      // console.log('hi');
+      // console.log(data.onoffswitch);
+
+
+      newPost = {
+        contents: [data.contents || '/img/'+data.fileInput],
+        _id: uid,
+        privacy: onOff,
+        username: req.user.username,
+        date: date,
+        rating: Number(0),
+        uwv: []
+      };
+
+      // console.log(data.fileInput)
+
+
+      user.posts.push(newPost);
+      // if (newPost.privacy === 'false') {
+      //  user.publicPosts.push(newPost);
+      // }
+
+      user.save(function(err, user){
+        // console.log(user)
+        if(err) return handleErr(err);
+        if(newPost.privacy === 'false'){
+          for (var i = 0; i < user.followers.length; i++) {
+            User.findOne({username:user.followers[i]}, function(err, follower){
+              // console.log(follower
+              follower.discover.push(newPost)
+              follower.save();
+            });
+          }
+        }
+        // console.log(user)
+        // res.redirect('/'+req.user.username+'/home');
+      });
+    });
+
+function postFormData(uploads, data, callback){
+    if (typeof FormData ==="undefined")
+      throw new Error("FormData is not implemented");
+
+    console.log(data.fileInput)
+
+    var request = new XMLHttpRequest();
+    request.open("POST", uploads);
+    request.onreadystatechange = function(){
+      if(request.readyState === 4 && callback)
+        callback(request);
+    };
+    var formdata = new FormData();
+    for(var name in data) {
+      if(!data.hasOwnProperty(name)) continue;
+      var value = data[name];
+      if (typeof value === "function") continue;
+      formdata.append(name, value);
+    }
+
+    request.send(formdata);
+
+  }
+  postFormData();
+
+    
+});
 app.post('/ideaRemoved', usersController.RemovePost);
 app.post('/upvote', postController.Upvote);
 app.post('/downvote', postController.Downvote);
