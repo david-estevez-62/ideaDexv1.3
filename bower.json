@@ -1,0 +1,19 @@
+{
+  "name": "IdeaNetwork",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ehruska/IdeaDexv1.1",
+  "authors": [
+    "Eric <ejh81491@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-social": "~4.9.0"
+  }
+}

@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+	function confirmPass() {
+        var pass = document.getElementById("pass").value
+        var confPass = document.getElementById("c_pass").value
+        if(pass != confPass) {
+            alert('Wrong confirm password !');
+        }
+    }
 
 	//remove focus and border on click of (post) input event
 	$("#postinput").on('click', function(){

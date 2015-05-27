@@ -6,7 +6,7 @@ block content
 		h1.headline Welcome, #{user.username}
 		img.gravitar(src="#{user.imageUrl}", height="200px", width="200px")
 		div
-			form#addPost(action="/uploads/upload", method="post", placeholder='Add your ideas here...')
+			form#addPost(action="/ideaPosted", method="post", enctype="multipart/form-data", placeholder='Add your ideas here...')
 				input#postinput(type="text", name="contents" placeholder="Add your ideas here...")
 				div.privacy(class="onoffswitch", id='privacytog')
 					input(type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked)
@@ -18,7 +18,7 @@ block content
 				</div>
 				input#submit1(type="submit", value="Post")
 			img.uploadTake(src="/img/uploadpicIcon.png", id="upload", width="25px")
-			
+		
 		div
 			table.ideaTable
 				tr
@@ -37,17 +37,17 @@ block content
 								h3.rating= post.rating
 								area(alt="" title="" shape="poly" coords="40,63,21,90,4,63" class="downvote" data-postid=post._id)
 						td.ideaBody
+							img(src=post.contents width="400px")
 							h3= post.contents
 							h6= post.date
 							h6= post.username
 						td
 							a.delete(href="#", data-postid=post._id) Remove
-
+		
 
 								
 						
-
-
+//- if post.contents.substr(post.contents.length-3) === "png" || post.contents.substr(post.contents.length-3) === "jpg" || post.contents.substr(post.contents.length-4) === "jpeg"
 	//- form
 	//- 	input(type='file')
 

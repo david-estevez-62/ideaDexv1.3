@@ -7,7 +7,12 @@ block content
 		p Change password?
 			a(href="/"+user.username+"/changePassword") Reset Here
 		p Upload or Add Image Destination
-			form(action="/uploadProfilepic", method="post")
+			form(action="/uploadProfilepic", method="post", enctype="multipart/form-data")
+				input(type="file", name="imageUrl")
+				input(type="submit")
+		p Upload or Add Image Destination
+			form(action="/uploadProfpic", method="post")
 				input(type="text", name="imageUrl")
 				input(type="submit")
+
 		

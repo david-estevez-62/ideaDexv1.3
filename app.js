@@ -7,8 +7,7 @@ var shortid = require('shortid');
 var path = require('path');
 var fs = require('fs');
 var multer = require('multer');
-
-
+var util = require("util");
 
 
 var session = require('express-session');
@@ -83,7 +82,7 @@ app.use(passport.session());
 app.use(multer({
     dest: "./public/uploads/"
 }));
-app.post("/uploads", uploadsController.uploads);
+
 
 
 
@@ -131,6 +130,8 @@ app.get('/:username/home', function (req, res) {
 });
 
 
+// app.post("/uploads", uploadsController.uploads);
+
 
 app.post('/ideaPosted', function (req, res) {
 
@@ -150,12 +151,11 @@ app.post('/ideaPosted', function (req, res) {
       if (err) return handleErr(err);
 
       var uid = shortid.generate();
-      // console.log('hi');
-      // console.log(data.onoffswitch);
+
 
 
       newPost = {
-        contents: [data.contents || '/img/'+data.fileInput],
+        contents: [data.contents || '/uploads/'+req.files.fileInput.name],
         _id: uid,
         privacy: onOff,
         username: req.user.username,
@@ -164,56 +164,38 @@ app.post('/ideaPosted', function (req, res) {
         uwv: []
       };
 
-      // console.log(data.fileInput)
-
-
       user.posts.push(newPost);
-      // if (newPost.privacy === 'false') {
-      //  user.publicPosts.push(newPost);
-      // }
 
       user.save(function(err, user){
-        // console.log(user)
         if(err) return handleErr(err);
         if(newPost.privacy === 'false'){
           for (var i = 0; i < user.followers.length; i++) {
             User.findOne({username:user.followers[i]}, function(err, follower){
-              // console.log(follower
               follower.discover.push(newPost)
               follower.save();
             });
           }
         }
-        // console.log(user)
-        // res.redirect('/'+req.user.username+'/home');
       });
     });
+    
 
-function postFormData(uploads, data, callback){
-    if (typeof FormData ==="undefined")
-      throw new Error("FormData is not implemented");
-
-    console.log(data.fileInput)
-
-    var request = new XMLHttpRequest();
-    request.open("POST", uploads);
-    request.onreadystatechange = function(){
-      if(request.readyState === 4 && callback)
-        callback(request);
-    };
-    var formdata = new FormData();
-    for(var name in data) {
-      if(!data.hasOwnProperty(name)) continue;
-      var value = data[name];
-      if (typeof value === "function") continue;
-      formdata.append(name, value);
+  // Upload images to uploads folder
+    if (!req.files.fileInput || !req.files.fileInput.size) {
+      console.log('do nothing')
+      }
+    else{
+      console.log(util.inspect(req.files));
+      if (req.files.fileInput.size === 0) {
+                  return next(new Error("Hey, first would you select a file?"));
+      }
+      fs.exists(req.files.fileInput.path, function(exists) {
+        if(!exists) {
+          res.end("Well, there is no magic for those who don’t believe in it!");
+        }
+      });
     }
-
-    request.send(formdata);
-
-  }
-  postFormData();
-
+    res.redirect("/"+username+"/home");
 
 });
 app.post('/ideaRemoved', usersController.RemovePost);
@@ -383,14 +365,13 @@ app.post('/changePassword', usersController.ChngPassword);
 
 
 
-app.post('/uploadProfilepic', function(req, res){
+app.post('/uploadProfpic', function(req, res){
 
     User.findOne({username: req.user.username}, function (err, data) {
       if (err) return handleErr(err);
 
       data.imageUrl = req.body.imageUrl || "/img/gravatar.jpg";
-      var par = req.body.imageUrl;
-      console.log(par);
+      
       data.save(function(err, user) {
         console.log('ji');
         if(err) return handleErr(err);
@@ -399,6 +380,41 @@ app.post('/uploadProfilepic', function(req, res){
       });
 
     });
+
+});
+app.post('/uploadProfilepic', function(req, res){
+    var id = req.user._id;
+
+    User.findById(id, function (err, data) {
+      if (err) return handleErr(err);
+
+      data.imageUrl = '/uploads/' + req.files.imageUrl.name || "/img/gravatar.jpg";
+      
+      data.save(function(err, user) {
+        console.log('ji');
+        if(err) return handleErr(err);
+        // res.send(user);
+        // res.redirect('/'+username+'/edit');
+      });
+
+    });
+
+    if (!req.files.imageUrl || !req.files.imageUrl.size) {
+      console.log('do nothing')
+      }
+    else{
+      console.log(util.inspect(req.files));
+      if (req.files.imageUrl.size === 0) {
+                  return next(new Error("Hey, first would you select a file?"));
+      }
+      fs.exists(req.files.imageUrl.path, function(exists) {
+        if(!exists) {
+          res.end("Well, there is no magic for those who don’t believe in it!");
+        }
+      });
+    }
+    res.redirect("/"+req.user.username+"/home");
+
 
 });
 

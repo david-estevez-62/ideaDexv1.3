@@ -2,8 +2,11 @@ doctype html
 html(lang='en')
 	head
 		meta(charset="utf-8")
-		link(rel="stylesheet", type="text/css", href="main.css")
+		link(rel="stylesheet", type="text/css", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.9.0/bootstrap-social.css")
 		link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
+		link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css")
+		link(rel="stylesheet", type="text/css", href="main.css")
+
 		title IdeaDex
 
 	body.container
@@ -21,20 +24,20 @@ html(lang='en')
 							label Password:
 							input.loginpassword1(type="password", name="password", placeholder="password")
 						p
-						p
-							input.loginbtn1(type="submit", value="Sign in", placeholder='Sign in')
+							input.loginbtn1(type="submit", value="Sign in", placeholder='Sign in', class="btn btn-default")
 				p
 				div
-					button
-						a.loginbtn2(href="/createacct") Sign Up
+					a.signup(href="/createacct" class="btn btn-default") Sign Up
+				div.forgotbtn
+					a(href="/changeUsername") Reset Username
+				div.forgotbtn
+					a(href="/changePassword") Reset Password
 				div
-					span forgot username?
-						button.chgusr
-							a(href="/changeUsername") Reset Username
+					a#facebooksignin(class="btn btn-block btn-social btn-facebook") Sign in with Facebook
+						i(class="fa fa-facebook") 
 				div
-					span forgot password?
-						button.chgpw
-							a(href="/changePassword") Reset Password
+					a#googlesignin(class="btn btn-block btn-social btn-google") Sign in with Google
+						i(class="fa fa-google") 
 			//- h2 Persons Ideas
 			//- ul#idea-list
 			//- 	for idea in Ideas
