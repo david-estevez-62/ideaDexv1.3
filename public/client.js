@@ -8,6 +8,12 @@ $(document).ready(function(){
         }
     }
 
+    // $('#submit2').on('click', function(){
+    // 	console.log('hi')
+    // 	sweetAlert("Oops...", "Something went wrong!", "error");
+    // })
+    
+
 	//remove focus and border on click of (post) input event
 	$("#postinput").on('click', function(){
 		$(this).addClass('noborder');

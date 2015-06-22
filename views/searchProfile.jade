@@ -4,7 +4,7 @@ block content
 	h3 You are surfing #{user.username}s profile
 	h5(display: hidden) #{user.username}
 	if (isFollowing === -1)
-		btn.btn.btn-default#submit2 Follow
+		btn.btn.btn-default#submit2(onclick='sweetAlert("Nice Job", "You just followed this users account!", "success");') Follow
 	div
 		table.ideaTable
 			tr

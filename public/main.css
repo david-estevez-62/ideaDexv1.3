@@ -105,7 +105,7 @@ ul li:hover ul {
 #postinput {
 	position:fixed;
 	border-radius:1px;
-	box-shadow: 5px 5px 5px #888888;
+	box-shadow: 3px 3px 3px #888888;
 	left:460px;
 	top:135px;
 	height:27px;
@@ -114,20 +114,21 @@ ul li:hover ul {
 .uploadTake {
 	position:fixed;
 	left:828px;
-	top:136px;
+	top:137px;
 	height:25px;
 	width:32px;
 }
 #submit1{
 	position:fixed;
-
+  height:30px;
+  width:45px;
 	left:865px;
 	top:136px;
 }
 #privacytog {
 	position:fixed;
 	left:945px;
-	top:132px;
+	top:133px;
 }
 
 .noborder{
@@ -168,16 +169,33 @@ ul li:hover ul {
 
 
 /*discover jade - discover Page*/
-.Table1{
+.table1{
   min-height: 300px;
   height: auto;
-  margin-top:-40px;
+  margin-top:30px;
   margin-left: 285px;
 }
-.Table1 tr {
+.table1 tr {
   height:150px;
 }
-.Table1 tr td:nth-child(3) {
+.table1 tr td:nth-child(3) {
+  /*position: relative;
+  top:100px;
+  left:20%;*/
+  border-left: 4px solid #999999;
+  border-right: 4px solid #999999;
+  width:900px;
+}
+.table2{
+  min-height: 300px;
+  height: auto;
+  margin-top:-45px;
+  margin-left: 285px;
+}
+.table2 tr {
+  height:150px;
+}
+.table2 tr td:nth-child(3) {
   /*position: relative;
   top:100px;
   left:20%;*/
@@ -190,13 +208,12 @@ ul li:hover ul {
 
 
 
-
 /*index jade - login Page*/
 .container{
 	width:100%;
 	height:100%;
 	background: #3c484d;
-	position:absolute;
+	/*position:absolute;*/
 }
 .login{
 	color: white;
@@ -204,10 +221,11 @@ ul li:hover ul {
 	width:380px;
 	height:289px;
 	padding: 5px 0 0 20px;
-	position:relative;
+	/*position:relative;*/
 	border-radius: 5px;
   top:33%;
   margin:auto;
+  margin-top: 50px;
 }
 .form1{
 	color:black;
@@ -236,10 +254,15 @@ ul li:hover ul {
 	padding-left:10px;
 	width:177px;
 }
-.logoimg{
-  position:fixed;
-  top:15%;
-  left:40%;
+.logo{
+  background: black;
+  width:265px;
+  height:100px;
+  margin:0;
+  padding: 0;
+  top:23%;
+  margin:auto;
+  margin-top: 150px;
 }
 .loginbtn1{
 	color:black;
@@ -259,11 +282,11 @@ ul li:hover ul {
   margin-left: 125px;
 }
 .signup {
-	position:absolute;
-  top:154px;
-  left:28px;
   width:67px;
-  margin-top:10px;
+  margin-top:-75px;
+}
+.createacct {
+  color:black;
 }
 
 

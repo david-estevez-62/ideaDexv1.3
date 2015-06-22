@@ -2,6 +2,8 @@ doctype html
 html(lang='en')
 	head
 		meta(charset="utf-8")
+		script(src="../bower_components/sweetalert/dist/sweetalert.min.js")
+		link(rel="stylesheet" type="text/css" href="../bower_components/sweetalert/dist/sweetalert.css")
 		link(rel="stylesheet", type="text/css", href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css")
 		link(rel="stylesheet", type="text/css", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css")
 		link(rel="stylesheet", type="text/css", href="/main.css")
@@ -26,7 +28,7 @@ html(lang='en')
 				ul
 					li
 							a.navbtn(href="/"+user.username+"/notifications" class="btn btn-default btn-xs" role="button") Notifications
-								span.badge #{user.notifications.length}
+								//- span.badge #{user.notifications.length}
 					li
 							a.navbtn(href="/"+user.username+"/edit" class="btn btn-default btn-xs" role="button") Edit
 					li

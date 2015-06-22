@@ -62,7 +62,7 @@ app.use(express.static(__dirname + '/public'));
 // app.use(express.bodyParser({uploadDir:'/uploads'}));
 // app.use(express.bodyParser({uploadDir:'./uploads'}));
 app.use(bodyParser.urlencoded({extended: false}));
-
+app.use("/user/bower_components", express.static(__dirname + '/bower_components'));
 
 
 // app.use(express.bodyParser({uploadDir:'./uploads'}));
@@ -82,6 +82,7 @@ app.use(passport.session());
 app.use(multer({
     dest: "./public/uploads/"
 }));
+
 
 
 
@@ -122,6 +123,34 @@ app.use(passportConfig.isLoggedIn);
 //
 app.get('/:username/home', function (req, res) {
   var posts = req.user.posts.reverse();
+  // console.log(posts)
+
+  // for (var i = 0; i < posts.length; i++) {
+  //   var verse = posts[i].contents.pop()
+
+
+  //   function reverse(){
+  //     var content = verse.split("").reverse().join("");
+  //     console.log(content)
+  //     console.log(typeof(content))
+
+  //     return content;
+  //   }
+
+    
+    // var content1 = verse.pop();
+    // var word = toString(content1);
+    // var content = word.reverse();
+
+    
+    // console.log(content.substring(0,3));
+    // if(reverse.charAt)
+
+
+
+    // console.log(posts[i].contents)
+  // };
+
 
   res.render('home', {
     user: req.user,
