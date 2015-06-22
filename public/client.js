@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+	document.getElementById("fileInput").onchange = function() {
+    	document.getElementById("addPost").submit();
+	};
+
+
 	function confirmPass() {
         var pass = document.getElementById("pass").value
         var confPass = document.getElementById("c_pass").value
