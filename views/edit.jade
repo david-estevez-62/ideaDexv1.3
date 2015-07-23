@@ -2,17 +2,18 @@ extends layout
 
 block content
 	div.edit
-		p Change username?
-			a(href="/"+user.username+"/changeUsername") Reset Here
-		p Change password?
-			a(href="/"+user.username+"/changePassword") Reset Here
-		p Upload or Add Image Destination
-			form(action="/uploadProfilepic", method="post", enctype="multipart/form-data")
-				input(type="file", name="imageUrl")
-				input(type="submit")
-		p Upload or Add Image Destination
-			form(action="/uploadProfpic", method="post")
-				input(type="text", name="imageUrl")
-				input(type="submit")
+		div.editblock
+			p Change username?
+				a(href="/"+user.username+"/changeUsername") Reset Here
+			p Change password?
+				a(href="/"+user.username+"/changePassword") Reset Here
+			p Upload or Add Image Destination
+				form(action="/uploadProfilepic", method="post", enctype="multipart/form-data")
+					input(type="file", name="imageUrl")
+					input(type="submit")
+			p Upload or Add Image Destination
+				form(action="/uploadProfpic", method="post")
+					input(type="text", name="imageUrl")
+					input(type="submit")
 
 		

@@ -10,20 +10,16 @@ html(lang='en')
 		title IdeaDex
 
 	body.container
-			div.logo		
-				img.logoimg(src="/img/ideadexlogo.png")
+				
 			div.login
-				div
-					h1 IdeaDex
+				img.logoimg(src="/img/ideadexlogo.png")
 				div
 				
 					form(action="/login", method="post")
-						div.form1
-							label Username:
+						div
 							input.loginusername(type="text", name="username", placeholder="username")
-						div.form1
-							label Password:
-							input.loginpassword1(type="password", name="password", placeholder="password")
+						div
+							input.loginpassword(type="password", name="password", placeholder="password")
 						p
 							input.loginbtn1(type="submit", value="Sign in", placeholder='Sign in', class="btn btn-default")
 				p

@@ -7,24 +7,22 @@ html(lang='en')
 		title IdeaDex
 
 	body.container
-			div.logo
-				img.logoimg(src="/img/ideadexlogo.png")
 			div.login
 				div
-					h1 IdeaDex
-				div
+					img.logoimg(src="/img/ideadexlogo.png")
 					form(action="/signup", method="post")
-						div.form1
-							label Username: 
+						div
 							input.loginusername(type="text", name="username", placeholder="username")
-						div.form1
-							label Password:
-							input#pass.loginpassword1(type="password", name="password", placeholder="password")
-						div.form1
-							label Cfm Password:
-							input#c_pass.loginpassword2(type="password", name="password-verify" placeholder="password")
+						div
+							input.loginpassword1(type="password", name="password", placeholder="password")
+						div
+							input.loginpassword2(type="password", name="password-verify" placeholder="password")
 						p
-						input.createacct(type="submit", value="Create Acct")
+						input.createacct(type="submit", value="Create Acct", class="btn btn-default")
+
+		block content
+			script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+			script(src="/client.js")
 
 
 

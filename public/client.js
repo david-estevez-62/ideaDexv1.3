@@ -1,23 +1,50 @@
 $(document).ready(function(){
 
-	document.getElementById("fileInput").onchange = function() {
-    	document.getElementById("addPost").submit();
-	};
+	// document.getElementById("fileInput").onchange = function() {
+ //    	document.getElementById("addPost").submit();
+	// };
 
 
-	function confirmPass() {
-        var pass = document.getElementById("pass").value
-        var confPass = document.getElementById("c_pass").value
-        if(pass != confPass) {
-            alert('Wrong confirm password !');
-        }
-    }
+////////////////////////////
+// SignUp Page Validation //
+////////////////////////////
 
-    // $('#submit2').on('click', function(){
-    // 	console.log('hi')
-    // 	sweetAlert("Oops...", "Something went wrong!", "error");
-    // })
-    
+	// $('.createacct').on('click', function(e){
+	// 	e.preventDefault();
+
+	// 	console.log('hi');
+
+	// 	var username = $('.loginusername').val();
+
+	// 	var password1 = $('.loginpassword1').val();
+	// 	var password2 = $('.loginpassword2').val();
+
+	// 	if(password1 === password2){
+
+	// 		$.post('/signup', {username:username, password1:password1} , function(data){
+
+	// 			console.log(data)
+					
+	// 		});
+
+	// 		$('.loginusername').val('');
+	// 		$('.loginpassword1').val('');
+	// 		$('.loginpassword2').val('');
+
+	// 	}
+	// 	else {
+	// 		$('#signup').append('<p>passwords dont match up.</p>')
+	// 	}
+
+
+	// })
+
+
+
+
+
+
+  
 
 	//remove focus and border on click of (post) input event
 	$("#postinput").on('click', function(){
@@ -196,6 +223,8 @@ $(document).ready(function(){
 
 
 	// })
+
+
 
 
 

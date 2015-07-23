@@ -89,9 +89,16 @@ var adminController = {
   // assume that they are ready to log in, so we do that as well.
   processSignup: function(req, res, next){
 
+    var data = req.body;
+
     ///////////////////////////
     // console.log(req.body) //
     ///////////////////////////
+    // var user = new User({
+    //   username: data.username,
+    //   password: data.password1
+    //   // email: req.body.email
+    // });
 
     // Create a new instance of the User model with the data passed to this
     // handler. By using "param," we can safely assume that this route will
@@ -99,10 +106,12 @@ var adminController = {
     // It is safer to send as post, however, because the actual data won't
     // show up in browser history.
     var user = new User({
-      username: req.body.username,
-      password: req.body.password
+      username: data.username,
+      password: data.password
       // email: req.body.email
     });
+
+    console.log(user)
 
     // Now that the user is created, we'll attempt to save them to the
     // database.
