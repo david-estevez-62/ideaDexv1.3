@@ -99,14 +99,20 @@ app.post('/signup', adminController.processSignup);
 // Any requests to log out can be handled at this url
 app.get('/logout', adminController.logout);
 
-// ***** IMPORTANT ***** //
-// By including this middleware (defined in our config/passport.js module.exports),
-// We can prevent unauthorized access to any route handler defined after this call
-// to .use()
+
+
+
+
 app.get('/', indexController.index);
 app.get('/createacct', function (req, res) {
   res.render('createacct');
 });
+
+
+// ***** IMPORTANT ***** //
+// By including this middleware (defined in our config/passport.js module.exports),
+// We can prevent unauthorized access to any route handler defined after this call
+// to .use()
 
 app.use(passportConfig.isLoggedIn);
 // app.use(passportConfig.ensureAuthenticated);
