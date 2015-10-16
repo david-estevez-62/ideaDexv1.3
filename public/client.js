@@ -49,6 +49,7 @@ $(document).ready(function(){
 	//remove focus and border on click of (post) input event
 	$("#postinput").on('click', function(){
 		$(this).addClass('noborder');
+		console.log(document.title);
 	});
 
 	$("#upload").on('click', function(){

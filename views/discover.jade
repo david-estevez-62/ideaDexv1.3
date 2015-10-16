@@ -22,7 +22,7 @@ block content
 				td
 				td
 				td
-				for publicPost in posts	
+				for publicPost in posts
 					tr
 						td(data-postid2=publicPost.username)
 							img.favorite(src='/img/favoriteIcon.png', data-postid=publicPost._id, data-cont=publicPost.contents)
@@ -37,3 +37,4 @@ block content
 							h6= publicPost.username
 							h6= publicPost.date
 						td
+						

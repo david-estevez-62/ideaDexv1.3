@@ -203,7 +203,7 @@ app.post('/ideaPosted', function (req, res) {
 
       user.save(function(err, user){
         if(err) return handleErr(err);
-        if(newPost.privacy === 'false'){
+        if(newPost.privacy === false){
           for (var i = 0; i < user.followers.length; i++) {
             User.findOne({username:user.followers[i]}, function(err, follower){
               follower.discover.push(newPost)

@@ -178,6 +178,7 @@ var usersController = {
   RemovePost: function(req, res){
     var postid = req.body.thisPost;
     var id = req.user._id;
+    var username = req.user.username;
 
     User.findById(id, function(err, user) {
       if (err) return handleErr(err);
@@ -205,27 +206,20 @@ var usersController = {
 
                 follower.discover.splice(j, 1);
 
-                // user.save();
                 follower.save();
               }
             }
 
-            // follower.save();
           });
 
         }
 
-        res.send('success');
-        // res.redirect('/'+id+'/home');
+        
       });
 
 
-
-      // User.findByIdAndRemove(postid, function(err, result){
-      //  console.log(result)
-
-      // })
-
+      res.redirect('/'+username+'/home');
+      
     });
   }
 
