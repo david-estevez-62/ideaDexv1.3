@@ -104,6 +104,8 @@ app.get('/logout', adminController.logout);
 
 
 app.get('/', indexController.index);
+
+
 app.get('/createacct', function (req, res) {
   res.render('createacct');
 });
@@ -128,6 +130,7 @@ app.use(passportConfig.isLoggedIn);
 // Passing in ideas in res.render allows use to have access to ideas in jade
 //
 app.get('/:username/home', function (req, res) {
+  console.log(req.cookies)
   var posts = req.user.posts.reverse();
   // console.log(posts)
 
@@ -259,10 +262,11 @@ app.get('/:username/edit', function (req, res) {
 
 
 app.get('/:username/search', function (req, res) {
+  console.log(req.cookies)
   res.render('search', {user: req.user});
 });
 app.post('/:username/search', function (req, res) {
-
+  console.log(req.cookies)
   // User.findOne({'username':username}, function(err, user){
   User.find({username: new RegExp(req.body.search, 'i')}, function (err, user) {
 
@@ -272,7 +276,7 @@ app.post('/:username/search', function (req, res) {
         var matches =_.filter(user, function(obj){
           return obj.username !== req.params.username;
         });
-        console.log(matches);
+        // console.log(matches);
 
       res.render('search', {userlist: matches, user: req.user});
     });

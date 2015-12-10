@@ -54,6 +54,7 @@ var userSchema = mongoose.Schema({
  */
 userSchema.pre('save', function(next){
 
+
   // First, check to see if the password has been modified. If not, just move on.
   if(!this.isModified('password')) return next();
 
