@@ -10,7 +10,7 @@ html(lang='en')
 			div.login
 				div
 					img.logoimg(src="/img/ideadexlogo.png")
-					form(action="/signup", method="post")
+					form#createacct(action="/signup", method="post")
 						div
 							input.loginusername(type="text", name="username", placeholder="username")
 						div
@@ -18,6 +18,9 @@ html(lang='en')
 						div
 							input.loginpassword2(type="password", name="password-verify" placeholder="password")
 						p
+						p
+							input#togglePw(type="button" value="Show pw")
+						span.status
 						input.createacct(type="submit", value="Create Acct", class="btn btn-default")
 
 		block content
