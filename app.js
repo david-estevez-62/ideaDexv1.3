@@ -29,6 +29,8 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 var app = express();
 
+
+
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views/');
 app.use(express.static(__dirname + '/public'));
