@@ -135,7 +135,7 @@ var adminController = {
         // Flash the message and redirect to the login view to
         // show it.
         req.flash('error', errorMessage);
-        return res.redirect('/login');
+        // return res.redirect('/login');
       }
 
       // If we make it this far, we are ready to log the user in.

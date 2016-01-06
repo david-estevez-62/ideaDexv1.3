@@ -135,6 +135,7 @@ app.use(passportConfig.isLoggedIn);
 //
 app.get('/:username/home', function (req, res) {
   console.log(req.cookies)
+
   var posts = req.user.posts.reverse();
   // console.log(posts)
 
