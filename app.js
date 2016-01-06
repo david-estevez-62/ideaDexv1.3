@@ -7,6 +7,7 @@ var shortid = require('shortid');
 var path = require('path');
 var fs = require('fs');
 var multer = require('multer');
+var morgan = require('morgan');
 var util = require("util");
 
 
@@ -64,6 +65,7 @@ app.use(express.static(__dirname + '/public'));
 // app.use(express.bodyParser({uploadDir:'/uploads'}));
 // app.use(express.bodyParser({uploadDir:'./uploads'}));
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(morgan('dev'));
 app.use("/user/bower_components", express.static(__dirname + '/bower_components'));
 
 

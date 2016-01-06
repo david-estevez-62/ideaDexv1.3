@@ -111,7 +111,7 @@ var adminController = {
       // email: req.body.email
     });
 
-    console.log(user)
+    // console.log(user)
 
     // Now that the user is created, we'll attempt to save them to the
     // database.

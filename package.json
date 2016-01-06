@@ -13,6 +13,7 @@
     "fs": "0.0.2",
     "jade": "^1",
     "mongoose": "~3.8.24",
+    "morgan": "^1.6.1",
     "multer": "^0.1.8",
     "passport": "~0.2.1",
     "passport-local": "~1.0.0",
