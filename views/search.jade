@@ -14,7 +14,7 @@ block content
 						td
 							img(src=""+ n.imageUrl +"", style="width:100px")
 						td
-							a#findProfile(href='/user/#{user.username}/#{n.username}')
+							a#findProfile(href='/#{user.username}/#{n.username}')
 								p#otherProfile= n.username
 						td
 							p= n._id

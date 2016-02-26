@@ -1,8 +1,8 @@
 extends layout
 block content
 	br
-	h3 You are surfing #{user.username}s profile
-	h5(display: hidden) #{user.username}
+	h3 You are surfing #{otherusers.username}s profile
+	h5(display: hidden) #{otherusers.username}
 	if (isFollowing === -1)
 		btn.btn.btn-default#submit2(onclick='sweetAlert("Nice Job", "You just followed this users account!", "success");') Follow
 	div

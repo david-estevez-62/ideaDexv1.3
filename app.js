@@ -35,38 +35,9 @@ var app = express();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views/');
 app.use(express.static(__dirname + '/public'));
-
-// app.use(multer({
-//   dest: './uploads/',
-//   rename: function (fieldname, filename) {
-//     return filename.replace(/\W+/g, '-').toLowerCase();
-//   },
-//   onFileUploadStart: function (file) {
-//     process.stderr.write('Uploading file..........');
-//   },
-//   onFileUploadComplete: function (file) {
-//     process.stderr.write('done\n');
-//   },
-// }));
-
-
-
-// app.use(function(req, res){
-//   if(!req.files || !req.files.album_cover){
-//     // res.end("huh. Did you send a file?")
-//   } else{
-//     console.log(req.files);
-//     res.end("You have asked to set the album cover for "
-//         + req.body.albumid
-//         + " to '" + req.files.album_cover.name + "'\n");
-//   }
-// })
-// app.use(express.bodyParser({uploadDir:'./', keepExtensions: true}));
-// app.use(express.bodyParser({uploadDir:'/uploads'}));
-// app.use(express.bodyParser({uploadDir:'./uploads'}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('dev'));
-app.use("/user/bower_components", express.static(__dirname + '/bower_components'));
+app.use("/bower_components", express.static(__dirname + '/bower_components'));
 
 
 // app.use(express.bodyParser({uploadDir:'./uploads'}));
@@ -108,63 +79,27 @@ app.get('/logout', adminController.logout);
 
 
 app.get('/', indexController.index);
-
-
 app.get('/createacct', function (req, res) {
   res.render('createacct');
 });
 
 
+
+
 // ***** IMPORTANT ***** //
 // By including this middleware (defined in our config/passport.js module.exports),
 // We can prevent unauthorized access to any route handler defined after this call
-// to .use()
+// to .use()  [// app.use(passportConfig.ensureAuthenticated);]
 
 app.use(passportConfig.isLoggedIn);
-// app.use(passportConfig.ensureAuthenticated);
 
 
 
-// app.get('/:username/home', function(req,res){
-//  res.render('home', {user: req.user})
-// })
-// app.get('/home', function (req, res) {
-//   res.render('home', {user: req.user});
-// });
-// Passing in ideas in res.render allows use to have access to ideas in jade
-//
+
+
 app.get('/:username/home', function (req, res) {
-  console.log(req.cookies)
 
   var posts = req.user.posts.reverse();
-  // console.log(posts)
-
-  // for (var i = 0; i < posts.length; i++) {
-  //   var verse = posts[i].contents.pop()
-
-
-  //   function reverse(){
-  //     var content = verse.split("").reverse().join("");
-  //     console.log(content)
-  //     console.log(typeof(content))
-
-  //     return content;
-  //   }
-
-    
-    // var content1 = verse.pop();
-    // var word = toString(content1);
-    // var content = word.reverse();
-
-    
-    // console.log(content.substring(0,3));
-    // if(reverse.charAt)
-
-
-
-    // console.log(posts[i].contents)
-  // };
-
 
   res.render('home', {
     user: req.user,
@@ -172,8 +107,6 @@ app.get('/:username/home', function (req, res) {
   });
 });
 
-
-// app.post("/uploads", uploadsController.uploads);
 
 
 app.post('/ideaPosted', function (req, res) {
@@ -246,32 +179,17 @@ app.post('/upvote', postController.Upvote);
 app.post('/downvote', postController.Downvote);
 app.post('/favorite', usersController.Favorite);
 
-// app.get('/users/:userid', readController.getByUser);
-// // If already following dont have follow button other have follow btn
-// app.get('/users/:userid/:otheruserid', readController.getByUser)
 
-
-
-
-
-// app.get('/:id/edit', function (req, res) {
-//   var id = user._id;
-//   res.redirect('/'+id+'/edit');
-// });
 app.get('/:username/edit', function (req, res) {
   res.render('edit', {user: req.user});
 });
-//res.redirect('/guest-portal');
-
-
 
 
 app.get('/:username/search', function (req, res) {
-  console.log(req.cookies)
   res.render('search', {user: req.user});
 });
 app.post('/:username/search', function (req, res) {
-  console.log(req.cookies)
+    console.log(req.cookies);
   // User.findOne({'username':username}, function(err, user){
   User.find({username: new RegExp(req.body.search, 'i')}, function (err, user) {
 
@@ -281,62 +199,12 @@ app.post('/:username/search', function (req, res) {
         var matches =_.filter(user, function(obj){
           return obj.username !== req.params.username;
         });
-        // console.log(matches);
 
       res.render('search', {userlist: matches, user: req.user});
-    });
-
-    // res.('/search')
-});
-
-
-
-
-
-app.get('/user/:me/:username', function (req, res) {
-  var isFollowing = req.user.following.indexOf(req.params.username);
-
-
-      User.find({username: req.params.username}, function (err, data) {
-        if (err) {
-          res.send(err);
-        }
-
-          var allPosts= data[0].posts.reverse();
-        //   console.log(allPosts)
-        //   console.log(data[0].posts)
-
-        // console.log(allPosts)
-
-        var publicPosts=_.filter(allPosts, function(obj){
-          return obj.privacy === false;
-        });
-        console.log(publicPosts);
-
-        res.render('searchProfile', {
-          user: req.params,
-          isFollowing: isFollowing,
-          publicPosts: publicPosts
-        });
 
     });
+
 });
-app.post('/follow', usersController.FollowUser);
-
-
-  // User.find({following: req.params.username}, function (err, user) {
-  //     if (err) res.send(err);
-
-  //     var following = following.indexOf(req.params.username)
-
-  //     // map over array of friends to see if friends with hyperlink username that was clicked on
-  //     //////////////////////////////////////////////////////////////////
-  //     // if friends prefix with friend (i.e username/friend/username)//
-  //     // if not friends yet (i.e. username/username)                //
-  //     ///////////////////////////////////////////////////////////////
-
-  //     console.log(following);
-  //     res.render('searchProfile', {user: req.body});
 
 
 app.get('/:username/discover', function (req, res) {
@@ -349,19 +217,18 @@ app.get('/:username/discover', function (req, res) {
 
 app.get('/:username/favorites', function (req, res) {
 
-  User.find({username: req.user.username}, function (err, data) {
-    if (err) {
-      res.send(err);
-    }
+    console.log(req.user.username);
 
     var favorites = req.user.favorites.reverse();
+    console.log(favorites);
+
       res.render('favorites', {
         user: req.user,
         favorites: favorites
       });
-  });
 
 });
+
 app.get('/:username/notifications', function (req, res) {
 
   User.find({username: req.user.username}, function (err, data) {
@@ -406,6 +273,51 @@ app.get('/:username/changePassword', function (req, res) {
   res.render('changePassword', {user: req.user});
 });
 app.post('/changePassword', usersController.ChngPassword);
+
+
+
+
+
+
+
+
+// app.get('/user/:me/:username', function (req, res) {
+//   var isFollowing = req.user.following.indexOf(req.params.username);
+
+
+//       User.find({username: req.params.username}, function (err, data) {
+
+app.get('/:username/:usersprof', function (req, res) {
+  console.log(req.cookies);
+  var isFollowing = req.user.following.indexOf(req.params.usersprof);
+
+
+      User.find({username: req.params.usersprof}, function (err, data) {
+        if (err) {
+          res.send(err);
+        }
+
+        var allPosts= data[0].posts.reverse();
+
+        var publicPosts=_.filter(allPosts, function(obj){
+          return obj.privacy === false;
+        });
+        console.log(publicPosts);
+
+        res.render('searchProfile', {
+          user: req.params,
+          otherusers: data[0],
+          isFollowing: isFollowing,
+          publicPosts: publicPosts,
+
+        });
+
+    });
+});
+app.post('/follow', usersController.FollowUser);
+
+
+
 
 
 

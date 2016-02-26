@@ -3,8 +3,10 @@ extends layout
 
 block content
 	div
-		h1.headline Welcome, #{user.username}
-		img.gravitar(src="#{user.imageUrl}", height="200px", width="200px")
+		h2.headline(style="position:fixed;top:85px;") Welcome, 
+		br 
+		h2(style="position:fixed;top:110px;") #{user.username}
+		img.gravitar(src="#{user.imageUrl}", height="200px", width="200px" style="position:fixed;top:180px;")
 		div
 			form#addPost(action="/ideaPosted", method="post", enctype="multipart/form-data", placeholder='Add your ideas here...')
 				input#postinput(type="text", name="contents" placeholder="Add your ideas here...")
@@ -48,16 +50,6 @@ block content
 						td
 							a.delete(href="#", data-postid=post._id) Remove
 		
-
-								
-						
-//- if post.contents.substr(post.contents.length-3) === "png" || post.contents.substr(post.contents.length-3) === "jpg" || post.contents.substr(post.contents.length-4) === "jpeg"
-	//- form
-	//- 	input(type='file')
-
-	//- form(action="demo_form.asp")
-	//- 	input(type="file" name="pic" accept="image/*")
-	//- 	input(type="submit")
 
 	
 	

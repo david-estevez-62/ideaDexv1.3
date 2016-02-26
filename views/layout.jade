@@ -9,37 +9,7 @@ html(lang='en')
 		link(rel="stylesheet", type="text/css", href="/main.css")
 		title IdeaDex
 	body
-		div.header
-			a.homelogo(href="/"+user.username+"/home") IdeaDex
-		nav(role="navigation")
-			form#searchform.form-group(action="/"+user.username+"/search", method="post")
-				input#searchinput.searchinput(type="text", placeholder="search for user", name="search")
-				//- input(type="submit", value="Search")
-		img#searchbtn(src="/img/magnifyGlass.png", width="37px")
-		ul.menuBar
-			li
-					a.navbtn(href="/"+user.username+"/home" class="btn btn-default btn-xs" role="button") Home
-			li
-					a.navbtn(href="/"+user.username+"/discover" class="btn btn-default btn-xs" role="button") Discover
-			li
-					a.navbtn(href="/"+user.username+"/favorites" class="btn btn-default btn-xs" role="button") Favorites
-			li
-				a.navbtn(class="btn btn-default btn-xs" role="button") Settings
-				ul
-					li
-							a.navbtn(href="/"+user.username+"/notifications" class="btn btn-default btn-xs" role="button") Notifications
-								//- span.badge #{user.notifications.length}
-					li
-							a.navbtn(href="/"+user.username+"/edit" class="btn btn-default btn-xs" role="button") Edit
-					li
-							a.navbtn(href="/" class="btn btn-default btn-xs" role="button") Logout
-						//- <div class="onoffswitch">
-						//- 	<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-						//- 	<label class="onoffswitch-label" for="myonoffswitch">
-						//- 		<span class="onoffswitch-inner"></span>
-						//- 		<span class="onoffswitch-switch"></span>
-						//- 	</label>
-						//- </div>
+		include ./templates/menubar.jade
 
 		block content
 		
